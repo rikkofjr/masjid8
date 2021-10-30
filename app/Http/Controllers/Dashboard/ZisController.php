@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Zis;
-use App\Models\ZisType;
 
 //Importing laravel-permission models
 use Spatie\Permission\Models\Role;
@@ -21,14 +19,17 @@ use PDF;
 use DB;
 Use Alert;
 
+use App\Repositories\DateRepository;
+
+use App\Models\Zis;
+use App\Models\ZisType;
+
 class ZisController extends Controller
 {
-    private $nowHijriDate;
-    private $nowHijriYear;
+    private $DateRepository;
 
-    public function __constuct(){
-        $this->nowHijriDate = \GeniusTS\HijriDate\Date::today()->format('j F, Y');
-        $this->nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
+    public function __construct(DateRepository $DateRepository){
+        $this->dateRepository = $DateRepository;
     }
     /**
      * Display a listing of the resource.
@@ -95,7 +96,7 @@ class ZisController extends Controller
     }
     public function index(){
         
-        $nowHijri = $this->nowHijriDate;
+        $nowHijri = \GeniusTS\HijriDate\Date::today()->format('j F, Y');
         $nowMasehi = Carbon::today()->format('Y');
         $zisType = ZisType::orderBy('zis_type', 'DESC')
         ->withCount(['zis', 'zis as zis_by_year_count' =>
