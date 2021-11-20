@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     {{ Form::label('zis_name', 'Jenis Zakat') }}
-                    {{ Form::select('zis_name', $ZisType, '', array('class'=>'form-control', 'placeholder'=>'Plih Jenis Zakat......')) }}
+                    {{ Form::select('zis_name[]', $ZisType, $JamaahZisType, array('class'=>'form-control', 'placeholder' => 'Pilih Jenis Zakat')) }}
                 </div>
 
                 <div class="form-group">
@@ -66,12 +66,12 @@
                         <hr>
                         <div class="form-group">
                             {{ Form::label('uang', 'Total Uang Zakat') }}
-                            {{ Form::text('uang', null, array('class' => 'form-control number-form', 'id' =>'tanpa-rupiah')) }}
+                            {{ Form::text('uang', null, array('class' => 'form-control number-form currency')) }}
                         </div>
 
                         <div class="form-group">
                             {{ Form::label('uang_infaq', 'Uang Infaq') }}
-                            {{ Form::text('uang_infaq', null, array('class' => 'form-control number-form tanpa-rupiah', 'id' =>'tanpa-rupiah1')) }}
+                            {{ Form::text('uang_infaq', null, array('class' => 'form-control number-form currency')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -108,38 +108,11 @@
 </div>
 @endsection
 @section('DynamicScript')
- <!--<script src="{{asset ('js/calculate.js')}}"></script>-->
- <script type="text/javascript">
-		var tanpa_rupiah = document.getElementById('tanpa-rupiah');
-        tanpa_rupiah.addEventListener('keyup', function(e)
-        {
-            tanpa_rupiah.value = formatRupiah(this.value);
-        });
-
-		var tanpa_rupiah1 = document.getElementById('tanpa-rupiah1');
-        tanpa_rupiah1.addEventListener('keyup', function(e)
-        {
-            tanpa_rupiah1.value = formatRupiah(this.value);
-        });
-		
-       
-	
-	/* Fungsi */
-	function formatRupiah(angka, prefix)
-	{
-		var number_string = angka.replace(/[^,\d]/g, '').toString(),
-			split	= number_string.split(','),
-			sisa 	= split[0].length % 3,
-			rupiah 	= split[0].substr(0, sisa),
-			ribuan 	= split[0].substr(sisa).match(/\d{3}/gi);
-			
-		if (ribuan) {
-			separator = sisa ? '.' : '';
-			rupiah += separator + ribuan.join('.');
-		}
-		
-		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-		return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-	}
-    </script>
+<script src="{{ asset('dashboard/js/cleave.min.js') }}"></script>
+<script>
+var cleaveC = new Cleave('.currency', {
+  numeral: true,
+  numeralThousandsGroupStyle: 'thousand'
+});
+</script>
 @endsection

@@ -20,6 +20,7 @@ use DB;
 Use Alert;
 
 use App\Repositories\DateRepository;
+use App\Repositories\ZisRepository;
 
 use App\Models\Zis;
 use App\Models\ZisType;
@@ -27,9 +28,11 @@ use App\Models\ZisType;
 class ZisController extends Controller
 {
     private $DateRepository;
+    private $ZisRepository;
 
-    public function __construct(DateRepository $DateRepository){
-        $this->dateRepository = $DateRepository;
+    public function __construct(DateRepository $DateRepository, ZisRepository $ZisRepository){
+        $this->DateRepository = $DateRepository;
+        $this->zisRepository = $ZisRepository;
     }
     /**
      * Display a listing of the resource.
@@ -53,7 +56,7 @@ class ZisController extends Controller
         $nowHijri = \GeniusTS\HijriDate\Date::today()->format('Y');
         $nowMasehi = Carbon::today()->format('Y');
         $zisType = ZisType::where('id', $zis_type)->get();
-        $zisHarian = Zis::select(
+        $zisHarian = $zisHarian = Zis::select(
             DB::raw('DATE(created_at) as date'), 
             DB::raw('sum(uang) as uang_harian'), 
             DB::raw('sum(uang_infaq) as uang_infaq_harian'),
@@ -148,10 +151,10 @@ class ZisController extends Controller
         $zis->nama_lain = $request->nama_lain;
         $zis->jumlah_jiwa = $request->jumlah_jiwa;
         if(isset($request->uang)){
-            $zis->uang = str_replace(".", "", $request->uang);
+            $zis->uang = str_replace(",", "", $request->uang);
         }
         if(isset($request->uang_infaq)){
-            $zis->uang_infaq = str_replace(".", "", $request->uang_infaq);
+            $zis->uang_infaq = str_replace(",", "", $request->uang_infaq);
         }
 
         $zis->beras = $request->beras;
@@ -185,9 +188,12 @@ class ZisController extends Controller
     public function edit($id)
     {
         $zis = Zis::findOrFail($id); //Get data with specified id
-        $ZisType = ZisType::all()->sortBy('id')->pluck('zis_type', 'id');
-        if(Auth::user()->id == $zis->amil || Auth::user()->hasPermissionTo('outsource-delete')){
-            return view('dashboard.zis.edit', compact('zis','ZisType'));
+        $ZisType = ZisType::pluck('zis_type', 'id')->all();
+        //$ZisType = ZisType::pluck('zis_type', 'id')->all();
+        $JamaahZisType = $zis->id_zis_type;
+        //dd($JamaahZisType);
+        if(auth()->user()->id == $zis->amil || Auth::user()->hasPermissionTo('outsource-delete')){
+            return view('dashboard.zis.edit', compact('zis','ZisType', 'JamaahZisType'));
         }else{
             abort('404');
         }
@@ -222,12 +228,12 @@ class ZisController extends Controller
         $zis->nama_lain = $request->nama_lain;
         $zis->jumlah_jiwa = $request->jumlah_jiwa;
         if(isset($request->uang)){
-            $zis->uang = str_replace(".", "", $request->uang);
+            $zis->uang = str_replace(",", "", $request->uang);
         }else{
             $zis->uang = $request->uang;
         }
         if(isset($request->uang_infaq)){
-            $zis->uang_infaq = str_replace(".", "", $request->uang_infaq);
+            $zis->uang_infaq = str_replace(",", "", $request->uang_infaq);
         }else{
             $zis->uang_infaq = $request->uang_infaq;
         }

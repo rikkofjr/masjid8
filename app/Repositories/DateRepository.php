@@ -11,10 +11,12 @@ class DateRepository {
         return $hijriDateNow;
     }
     public function hijriYearNow() {
-
         $hijriYearNow = \GeniusTS\HijriDate\Date::today()->format('Y');
         return $hijriYearNow;
-
+    }
+    public function masehiDateNow(){
+        $masehiDateNow = Carbon::format('j F, Y');
+        return $masehiDateNow;
     }
 
 }

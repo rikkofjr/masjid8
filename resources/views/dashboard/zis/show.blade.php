@@ -66,7 +66,7 @@
                     </tr>
                 </table>
                 <br>
-                <a href="{{route('adminPrintZakatJamaah', $zis->id)}}" class="btn btn-primary btn-icon-split">
+                <a href="{{route('adminPrintZakatJamaah', $zis->id)}}" class="btn btn-primary btn-icon-split" target="_blank">
                     <span class="icon text-white-50">
                       <i class="fas fa-print"></i>
                     </span>

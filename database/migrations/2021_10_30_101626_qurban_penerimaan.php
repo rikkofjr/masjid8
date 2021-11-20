@@ -18,13 +18,18 @@ class QurbanPenerimaan extends Migration
             $table->string('amil');
             $table->string('jenis_hewan');
             $table->text('atas_nama');
-            $table->text('nama_lain');
+            $table->text('nama_lain')->nullable();
+            $table->text('alamat');
             $table->text('permintaan');
             $table->string('nomor_handphone');
             $table->string('disaksikan');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
+            $table->date('hijri');
+            $table->string('nomor_hewan')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('amil')->references('id')->on('users');
         });
     }
 
@@ -35,6 +40,6 @@ class QurbanPenerimaan extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tb_qurban_penerimaan');
     }
 }

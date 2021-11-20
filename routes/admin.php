@@ -4,12 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\MasjidProfileController;
 use App\Http\Controllers\Dashboard\AlamatJamaahController;
 use App\Http\Controllers\Dashboard\DataJamaahController;
 use App\Http\Controllers\Dashboard\KasPenerimaanController;
 use App\Http\Controllers\Dashboard\KasPengeluaranController;
 use App\Http\Controllers\Dashboard\ZisController;
 use App\Http\Controllers\Dashboard\ZisTypeController;
+use App\Http\Controllers\Dashboard\QurbanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +29,7 @@ Route::get('/admin-profile', [DashboardController::class, 'coba'])->name('coba')
 Route::group(['middleware' => ['role:Admin']], function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::put('update-masjid-info', [DashboardController::class, 'updateMasjidProfile'])->name('UpdateMasjidInfo');
 });
 
 //Permission Bendahara
@@ -50,6 +53,8 @@ Route::group(['middleware' => ['permission:outsource-create']], function(){
     Route::resource('zis', ZisController::class);
     Route::get('rekap-zakat-rekapan/{zis_type}', [ZisController::class, 'rekapHarian'])->name('ZisRekapHarian');
 
+    //qurban
+    Route::resource('qurban', QurbanController::class);
 });
 
 //can do soft delete
