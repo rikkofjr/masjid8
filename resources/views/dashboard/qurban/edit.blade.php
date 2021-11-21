@@ -117,7 +117,6 @@
                     <select name="jenis_hewan" id="">
                         <option value="{{$qurban->jenis_hewan}}" hidden>{{$qurban->jenis_hewan}}</option>
                         <option value="Kambing">Kambing</option>
-                        <option value="Domba">Domba</option>
                         <option value="Kambing">Sapi</option>
                     </select>
                 </div>
@@ -171,7 +170,7 @@
                     </div>
                 </div>
                 <b style="color:red;">*</b> Wajib diisi
-                {{ Form::submit('Tambah Data', array('class' => 'col-md-12 btn btn-primary')) }}
+                {{ Form::submit('Rubah Data', array('class' => 'col-md-12 btn btn-primary')) }}
                 {{ Form::close() }}
 
             </div>

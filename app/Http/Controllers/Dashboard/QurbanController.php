@@ -38,7 +38,7 @@ class QurbanController extends Controller
         $nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
         $nowMasehiDate = Carbon::today()->format('j F, Y'); 
         
-        return view('dashboard.qurban.index', compact('nowHijriDate', 'nowMasehiYear','zisType'));  
+        return view('dashboard.qurban.index', compact('nowHijriYear', 'nowMasehiDate'));  
     }
 
     /**
@@ -134,7 +134,32 @@ class QurbanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $messages = [
+            'atas_nama.required' => 'Atas Nama  Wajid Diisi',
+            'jenis_hewan.required' => 'Jenis Hewan harap diisi',
+            'alamat.required' => 'Alamat pengqurban harap diisi',
+            'permintaan.required' => 'Permintaan pengqurban harap  diisi',
+            'nomor_handphone.required' => 'Nomor handphone harap diisi',
+        ];
+        $this->validate($request, [
+            'atas_nama'=>'required', 
+            'permintaan'=>'required', 
+            'jenis_hewan'=>'required', 
+            'alamat'=>'required', 
+            'nomor_handphone'=>'required', 
+        ],$messages);
+        $qurban = Qurban::findOrFail($id);
+        $qurban->jenis_hewan = $request->jenis_hewan;
+        $qurban->amil = Auth::user()->id;
+        $qurban->atas_nama = $request->atas_nama;
+        $qurban->nama_lain = $request->nama_lain;
+        $qurban->alamat = $request->alamat;
+        $qurban->permintaan= $request->permintaan;
+        $qurban->nomor_handphone= '62'. str_replace(",", "", $request->nomor_handphone);;
+        $qurban->disaksikan= $request->disaksikan;
+        $qurban->save();
+        Alert::success('Berhasil Menambah Meruba Data Kurban', 'a/n '.$qurban->atas_nama.'');
+        return redirect()->route('adminqurban.show', $qurban->id);      
     }
 
     /**
@@ -146,5 +171,77 @@ class QurbanController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    //Api
+    public function getQurbanKambing(){
+        $nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
+        $nowMasehi = Carbon::today()->format('Y');
+        $dataQurban = Qurban::orderBy('created_at', 'ASC')->where('jenis_hewan', 'Kambing')->whereYear('hijri', $nowHijriYear)->get();
+        return Datatables::of($dataQurban)
+            ->editColumn(('id'), function($dataQurban){
+                $masjidProfile = MasjidProfile::first();
+                $textWhatsapp = 'Assalamualaikum Wr.Wb Bapak/ibu '.$dataQurban->atas_nama.'%0aPerkenalkan Saya '.Auth::user()->name.' panitia qurban '.$masjidProfile->nama_masjid.' ingin mengabarkan bahwa hewan kurban '.$dataQurban->jenis_hewan.' dengan permintaan '.$dataQurban->permintaan.' akan dipotong pada hari raya idul adha, apabila ada pertanyaan silahkan hubungi kami..,%0aWasalamualaikum Wr.Wb%0aTerimakasih%0a'.Auth::user()->name.'';
+
+                $btn = '<a href="'.route('adminqurban.show', $dataQurban->id).'" class="btn-sm btn-primary">Lihat</a>';
+                $btn1 = '&nbsp; <a target="_blank" title="Hubungi Via Whatsapp" href="https://api.whatsapp.com/send?phone='.$dataQurban->nomor_handphone.'&text='.$textWhatsapp.'" class="btn-sm btn-success"><i class="fab fa-whatsapp text-white-50 m-1"></a></a>';
+                return $btn . $btn1;
+            })
+            ->editColumn(('amil'), function($dataQurban){
+                return $dataQurban->amil ? with ($dataQurban->data_amil->name): '';
+            })
+            ->editColumn(('nomor_hewan'), function($dataQurban){
+                return $dataQurban->nomor_hewan ? with ((int)filter_var($dataQurban->nomor_hewan, FILTER_SANITIZE_NUMBER_INT)): '';
+            })
+            ->editColumn(('created_at'), function ($dataQurban){
+                return $dataQurban->created_at ? with (new carbon($dataQurban->created_at))->format('d/m/Y | H:i') : '';
+             })
+            ->addIndexColumn()
+            ->removeColumn('updated_at','deleted_at', 'amil')
+            ->rawColumns(['id'])
+            ->make();
+    }
+    public function getQurbanSapi(){
+        $nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
+        $nowMasehi = Carbon::today()->format('Y');
+        $dataQurban = Qurban::orderBy('created_at', 'ASC')->where('jenis_hewan', 'Sapi')->whereYear('hijri', $nowHijriYear)->get();
+        return Datatables::of($dataQurban)
+            ->editColumn(('id'), function($dataQurban){
+                $masjidProfile = MasjidProfile::first();
+                $textWhatsapp = 'Assalamualaikum Wr.Wb Bapak/ibu '.$dataQurban->atas_nama.'%0aPerkenalkan Saya '.Auth::user()->name.' panitia qurban '.$masjidProfile->nama_masjid.' ingin mengabarkan bahwa hewan kurban '.$dataQurban->jenis_hewan.' dengan permintaan '.$dataQurban->permintaan.' akan dipotong pada hari raya idul adha, apabila ada pertanyaan silahkan hubungi kami..,%0aWasalamualaikum Wr.Wb%0aTerimakasih%0a'.Auth::user()->name.'';
+
+                $btn = '<a href="'.route('adminqurban.show', $dataQurban->id).'" class="btn-sm btn-primary">Lihat</a>';
+                $btn1 = '&nbsp; <a target="_blank" title="Hubungi Via Whatsapp" href="https://api.whatsapp.com/send?phone='.$dataQurban->nomor_handphone.'&text='.$textWhatsapp.'" class="btn-sm btn-success"><i class="fab fa-whatsapp text-white-50 m-1"></a></a>';
+                return $btn . $btn1;
+            })
+            ->editColumn(('amil'), function($dataQurban){
+                return $dataQurban->amil ? with ($dataQurban->data_amil->name): '';
+            })
+            // ->editColumn(('nomor_hewan'), function($dataQurban){
+            //     return $dataQurban->nomor_hewan ? with ((int)filter_var($dataQurban->nomor_hewan, FILTER_SANITIZE_NUMBER_INT)): '';
+            // })
+            ->editColumn(('created_at'), function ($dataQurban){
+                return $dataQurban->created_at ? with (new carbon($dataQurban->created_at))->format('d/m/Y | H:i') : '';
+             })
+            ->addIndexColumn()
+            ->removeColumn('updated_at','deleted_at', 'amil')
+            ->rawColumns(['id'])
+            ->make();
+    }
+    //Print
+    public function printQurbanByThisYear($jenis_hewan){
+        $nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
+        $dataQurban = Qurban::orderBy('created_at', 'ASC')->where('jenis_hewan', $jenis_hewan)->whereYear('hijri', $nowHijriYear)->get();
+        $pdf = PDF::loadview('dashboard.qurban.print.print-full',['dataQurban'=>$dataQurban, 'nowHijriYear'=>$nowHijriYear, 'jenis_hewan'=>$jenis_hewan]);
+        if(count($dataQurban) <= 1){
+            abort(404);
+        }else{
+            return $pdf->stream('qurban'.$jenis_hewan.'.pdf');
+        }
+    }
+    public function printQurbanJamaah($id){
+        $dataMasjid = MasjidProfile::first();
+        $dataQurban = Qurban::findOrFail($id);
+        return view('dashboard.qurban.print.print', compact('dataQurban','dataMasjid'));
     }
 }

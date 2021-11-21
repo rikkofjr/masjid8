@@ -86,9 +86,19 @@ Route::group(['prefix' => 'api'],function(){
     //zis
     Route::get('/zis-data-tahun-ini', [ZisController::class, 'getZisDataByThisYear'])->name('ApiZisDataByThisYear');
 
+    //Qurban
+    Route::get('/qurban-kambing-tahun-ini', [QurbanController::class, 'getQurbanKambing'])->name('ApiQurbanKambingByThisYear');
+    Route::get('/qurban-sapi-tahun-ini', [QurbanController::class, 'getQurbanSapi'])->name('ApiQurbanSapiByThisYear');
+
+
+
 });
 
 Route::group(['prefix' => 'print'],function(){
     //Print Zakat {Fitrah, Mall, Fidyah}
     Route::get('/zakat-jamaah/{id}', [ZisController::class, 'PrintZakatJamaah'])->name('PrintZakatJamaah');
+    
+    //print qurban
+    Route::get('/qurban/{jenis_hewan}', [QurbanController::class, 'printQurbanByThisYear'])->name('PrintQurbanRekapJamaah');
+    Route::get('/qurban/jamaah/{id}', [QurbanController::class, 'printQurbanJamaah'])->name('PrintQurbanJamaah');
 });

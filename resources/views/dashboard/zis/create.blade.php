@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('pageTitle')
-Tambahn Data ZIS
+Tambah Data ZIS
 @endsection
 
 @section('titleBar')

@@ -76,7 +76,7 @@ Qurban Atas Nama : {{$qurban->atas_nama}}
                     </span>
                     <span class="text">Edit</span>
                 </a>
-                <a href="{{route('adminqurban.edit', $qurban->id)}}" class="btn btn-primary btn-icon-split">
+                <a href="{{route('adminPrintQurbanJamaah', $qurban->id)}}" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-print"></i>
                     </span>
