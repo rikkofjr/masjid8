@@ -24,6 +24,7 @@ use App\Repositories\ZisRepository;
 
 use App\Models\Zis;
 use App\Models\ZisType;
+use App\Models\MasjidProfile;
 
 class ZisController extends Controller
 {
@@ -294,10 +295,9 @@ class ZisController extends Controller
     //
     public function PrintZakatJamaah($id){
         $todayHijri =\GeniusTS\HijriDate\Date::today()->format('Y');
+        $dataMasjid = MasjidProfile::first();
         $zis = Zis::findOrFail($id);
 
-        $pdf = PDF::loadview('dashboard.zis.print.print',['zis'=>$zis, 'nowHijri'=>$todayHijri]);
-        return $pdf->stream('zakat'.$id.'.pdf');
-        
+        return view('dashboard.zis.print.print', compact('zis', 'dataMasjid'));        
     }
 }

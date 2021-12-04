@@ -15,6 +15,7 @@
                         <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
                     </ul>
                 </li>
+            @can('dkm-create')    
             <li class="menu-header">DKM</li>
             <!--Jamaah-->
             <li class="nav-item dropdown">
@@ -33,9 +34,10 @@
                     <li><a class="nav-link" href="{{route('adminZisDashboard')}}">Zis</a></li>
                 </ul>
             </li>
-
-            <li class="menu-header">ZIS</li>
-            <!--Bendahara-->
+            @endcan
+            @can('outsource-create')
+            <li class="menu-header">Hari Besar</li>
+            <!--Zis-->
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-wallet"></i> <span>ZIS</span></a>
                 <ul class="dropdown-menu">
@@ -44,7 +46,15 @@
                     <li><a class="nav-link" href="{{route('adminZisDashboard')}}">Zis</a></li>
                 </ul>
             </li>
-
+            <!--Qurban-->
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class=""><img src="{{asset('img/svg/kambing.svg')}}" width="20px" alt=""><span></i>Qurban</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route('adminqurban.create')}}">Tambah Penerimaan</a></li>
+                    <li><a class="nav-link" href="{{route('adminqurban.index')}}">Data Penerimaan Hewan</a></li>
+                </ul>
+            </li>
+            @endcan
             <li class="menu-header">Dashboard Admin</li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user"></i> <span>User Manajemen</span></a>

@@ -69,7 +69,8 @@ Tambah Data Penerimaan Qurban
                         </div>
 
                         <div class="form-group">
-                            {{ Form::label('nomor_handphone', 'Nomor Handphone') }}<b style="color:red;">*</b><br />
+                            {{ Form::label('nomor_handphone', 'Nomor Whatsapp') }}<b style="color:red;">*</b><br />
+                            <small>Jika tidak ada Whatsapp tulis nomor handphone & tulis diketerangan "HP" </small>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">

@@ -6,13 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Dashboard\MasjidProfileController;
 use Illuminate\Http\Request;
 use App\Models\MasjidProfile;
+use App\Models\DataJamaah;
+use App\Models\AlamatJamaah;
 
 
 class DashboardController extends Controller
 {
     public function home(){
+        $dataJamaah = DataJamaah::all();
+        $alamatJamaah = AlamatJamaah::all();
         $masjidProfile = MasjidProfile::first();
-        return view('dashboard.index', compact('masjidProfile'));
+        return view('dashboard.index', compact(
+            'masjidProfile',
+            'dataJamaah',
+            'alamatJamaah' 
+        ));
     }
     public function coba(){
         return view ('dashboard.coba');

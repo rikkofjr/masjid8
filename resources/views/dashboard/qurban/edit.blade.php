@@ -158,7 +158,7 @@
                         </div>
                         <br />Keterangan Disaksikan
                         <select name="disaksikan" id="">
-                            <option value="{{$qurban->disaksikan}}" disabled>{{$qurban->disaksikan}}</option>
+                            <option value="{{$qurban->disaksikan}}" hidden>{{$qurban->disaksikan}}</option>
                             <option value="Disaksikan">Disaksikan</option>
                             <option value="Tidak Disaksikan">Tidak Disaksikan</option>
                         </select>

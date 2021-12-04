@@ -2,7 +2,7 @@
 
 
 @section('pageTitle')
-    Selamat Datang pada sistem informasi Masjid {{env('APP_NAME')}}
+Selamat Datang pada sistem informasi Masjid {{env('APP_NAME')}}
 @endsection
 
 @section('DynamicCss')
@@ -17,31 +17,119 @@
 </div>
 @endsection
 
-
 @section('mainContent')
 <div class="row">
-	<div class="col-md-8">
-		
-	</div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-primary">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total Admin</h4>
+                        </div>
+                        <div class="card-body">
+                            10
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total Outsource</h4>
+                        </div>
+                        <div class="card-body">
+                            10
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total Outsource</h4>
+                        </div>
+                        <div class="card-body">
+                            10
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Rumaah Jamaah</h4>
+                        </div>
+                        <div class="card-body">
+                            {{number_format($alamatJamaah->count())}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Jamaah</h4>
+                        </div>
+                        <div class="card-body">
+                            {{number_format($dataJamaah->count())}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header"> <h4>ABC</h4> </div>
+                    <div class="card-body"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header"> <h4>ABC</h4> </div>
+                    <div class="card-body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if(count(app\Models\User::all()) == 1 || Auth::user()->hasrole('Admin') )
     <div class="col-md-4">
-		<div class="card">
+        <div class="card">
             <div class="card-header">
                 <h4>Edit Profile Masjid</h4>
             </div>
             <div class="card-body">
-            @if (count($errors) > 0)
+                @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                        <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
-            @endif
+                @endif
                 <small>
-                Update Terakhir <br/>
-                Oleh : {{$masjidProfile->data_amil->name}}<br/>
-                Pada : {{$masjidProfile->updated_at}}
+                    Update Terakhir <br />
+                    Oleh : {{$masjidProfile->data_amil->name}}<br />
+                    Pada : {{$masjidProfile->updated_at}}
                 </small>
                 {{ Form::model($masjidProfile, array('route' => array('adminUpdateMasjidInfo'), 'method' => 'PUT')) }}
                 <div class="form-group">
@@ -72,16 +160,17 @@
                 <small style="color:red;">*</small> Wajib diisi
             </div>
         </div>
-	</div>
+    </div>
+    @endif
 
 </div>
 @endsection
 
 @section('DynamicScript')
+<script src="{{asset('dashboard/js/Chart.min.js')}}"></script>
 
-		
 @endsection
 @section('mainContentPopup')
 
-		
+
 @endsection

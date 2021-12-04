@@ -48,7 +48,7 @@
 							<br/>
 							<h1>Qurban Kambing</h1>
 							<br/>
-                            <a href="{{route('adminPrintQurbanRekapJamaah', 'Kambing')}}" class="btn-lg btn-primary"><i class="fas fa-print"></i>Print </a>
+                            <a target="_blank" href="{{route('adminPrintQurbanRekapJamaah', 'Kambing')}}" class="btn-lg btn-primary"><i class="fas fa-print"></i> Print </a>
 							<br/>
 							<br/>
 							<div class="table-responsive">
@@ -63,7 +63,7 @@
 											<td name="permintaan">Permintaan</td>
 											<td name="Disaksikan">Disaksikan</td>
 											<td name="keterangan">Keterangan</td>
-											<td name="id">Action</td>
+											<td width="100px" name="id">Action</td>
 										</tr>
 									</thead>
 									
@@ -76,6 +76,8 @@
 						<div id="external" class="tab-pane">
 							<br/>
 							<h1>Qurban Sapi</h1>
+							<br/>
+                            <a target="_blank" href="{{route('adminPrintQurbanRekapJamaah', 'Sapi')}}" class="btn-lg btn-primary"><i class="fas fa-print"></i> Print </a>
 							<br/>
 							<br/>
 							<div class="table-responsive">
@@ -90,7 +92,7 @@
 											<td name="permintaan">Permintaan</td>
 											<td name="Disaksikan">Disaksikan</td>
 											<td name="keterangan">Keterangan</td>
-											<td name="id">Action</td>
+											<td width="100px" name="id">Action</td>
 										</tr>
 									</thead>
 									

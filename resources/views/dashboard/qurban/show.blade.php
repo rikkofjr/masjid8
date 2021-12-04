@@ -36,7 +36,7 @@ Qurban Atas Nama : {{$qurban->atas_nama}}
                     <img src="{{asset('img/svg/kambing.svg')}}">
                 @endif
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
                 <table class="table table-bordered">
                     <tr>
                         <td>
@@ -70,13 +70,13 @@ Qurban Atas Nama : {{$qurban->atas_nama}}
                 <br>
 
                 </a>
-                <a href="{{route('adminqurban.edit', $qurban->id)}}" class="btn btn-primary btn-icon-split">
+                <a href="{{route('adminqurban.edit', $qurban->id)}}" class="btn btn-primary btn-icon-split" target="_blank">
                     <span class="icon text-white-50">
                         <i class="fas fa-pen"></i>
                     </span>
                     <span class="text">Edit</span>
                 </a>
-                <a href="{{route('adminPrintQurbanJamaah', $qurban->id)}}" class="btn btn-primary btn-icon-split">
+                <a href="{{route('adminPrintQurbanJamaah', $qurban->id)}}" class="btn btn-primary btn-icon-split" target="_blank">
                     <span class="icon text-white-50">
                         <i class="fas fa-print"></i>
                     </span>

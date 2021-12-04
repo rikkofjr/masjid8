@@ -91,6 +91,7 @@ class QurbanController extends Controller
             $qurban->disaksikan= $request->disaksikan;
             $qurban->hijri = \GeniusTS\HijriDate\Date::today();
             $qurban->nomor_hewan = $nomorHewan;
+            $qurban->keterangan = $request->keterangan;
             $qurban->save();
             Alert::success('Berhasil Menambah Hewan Kurban', 'a/n '.$qurban->atas_nama.'');
             return redirect()->route('adminqurban.show', $qurban->id);        
@@ -157,6 +158,7 @@ class QurbanController extends Controller
         $qurban->permintaan= $request->permintaan;
         $qurban->nomor_handphone= '62'. str_replace(",", "", $request->nomor_handphone);;
         $qurban->disaksikan= $request->disaksikan;
+        $qurban->keterangan = $request->keterangan;
         $qurban->save();
         Alert::success('Berhasil Menambah Meruba Data Kurban', 'a/n '.$qurban->atas_nama.'');
         return redirect()->route('adminqurban.show', $qurban->id);      
@@ -217,22 +219,25 @@ class QurbanController extends Controller
             ->editColumn(('amil'), function($dataQurban){
                 return $dataQurban->amil ? with ($dataQurban->data_amil->name): '';
             })
-            // ->editColumn(('nomor_hewan'), function($dataQurban){
-            //     return $dataQurban->nomor_hewan ? with ((int)filter_var($dataQurban->nomor_hewan, FILTER_SANITIZE_NUMBER_INT)): '';
-            // })
+            ->editColumn(('nomor_hewan'), function($dataQurban){
+                return $dataQurban->nomor_hewan ? with ((int)filter_var($dataQurban->nomor_hewan, FILTER_SANITIZE_NUMBER_INT)): '';
+            })
             ->editColumn(('created_at'), function ($dataQurban){
                 return $dataQurban->created_at ? with (new carbon($dataQurban->created_at))->format('d/m/Y | H:i') : '';
              })
+            ->editColumn(('permintaan'), function ($dataQurban){
+                return $dataQurban->permintaan ? with (nl2br(e($dataQurban->permintaan))): '';
+             })
             ->addIndexColumn()
             ->removeColumn('updated_at','deleted_at', 'amil')
-            ->rawColumns(['id'])
+            ->rawColumns(['id','permintaan'])
             ->make();
     }
     //Print
     public function printQurbanByThisYear($jenis_hewan){
         $nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
         $dataQurban = Qurban::orderBy('created_at', 'ASC')->where('jenis_hewan', $jenis_hewan)->whereYear('hijri', $nowHijriYear)->get();
-        $pdf = PDF::loadview('dashboard.qurban.print.print-full',['dataQurban'=>$dataQurban, 'nowHijriYear'=>$nowHijriYear, 'jenis_hewan'=>$jenis_hewan]);
+        $pdf = PDF::loadview('dashboard.qurban.print.print-full',['dataQurban'=>$dataQurban, 'nowHijriYear'=>$nowHijriYear, 'jenis_hewan'=>$jenis_hewan])->setPaper('a4','landscape');
         if(count($dataQurban) <= 1){
             abort(404);
         }else{

@@ -10,6 +10,7 @@
         color:#ff0000;
         font-size:30px;
     }
+    /*Paper Size*/
     .box{
         width:215px;
         border: solid 0.3px #000;

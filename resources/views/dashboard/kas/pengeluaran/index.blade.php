@@ -55,17 +55,16 @@
                 <h6 class="m-0 font-weight-bold text-primary">Saldo Terhitung</h6>
             </div>
             <div class="card-body">
-                <small>Penerimaan</small><br/>
-                <p style="text-align:right;"><small>{{number_format($totalKasPenerimaan)}}</small></p>
-                <small>Pengeluaran</small><br/>
-                <p style="text-align:right;"><small>{{number_format($totalKasPengeluaran)}}</small></p>
+                Penerimaan<br/>
+                <p style="text-align:right;">{{number_format($totalKasPenerimaan)}}</p>
+                Pengeluaran<br/>
+                <p style="text-align:right;">{{number_format($totalKasPengeluaran)}}</p>
                 <hr/>
                 Total : {{number_format($totalKasPenerimaan-$totalKasPengeluaran)}}
             </div>
         </div>
     </div>
 </div>
-<button type="button" class="btn btn-success btn-sm" id="getEditArticleData">Edit Data</button>'
 @endsection
 @section('DynamicScript')
 		<!-- Specific Page Vendor -->

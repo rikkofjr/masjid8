@@ -33,15 +33,17 @@
         <td width="25%" class="table-header-data" style="text-align:center;">Permintaan</td>
         <td width="25%" class="table-header-data" style="text-align:center;">Alamat</td>
         <td width="25%" class="table-header-data" style="text-align:center;">Handphone</td>
+        <td width="25%" class="table-header-data" style="text-align:center;">Disaksikan</td>
     </tr>
     @foreach($dataQurban as $qurban)
     <tr>
         <td class="table-body" style="text-align:center;">{{(int)filter_var($qurban->nomor_hewan, FILTER_SANITIZE_NUMBER_INT)}}</td>
         <td class="table-body">{{$qurban->atas_nama}}</td>
-        <td class="table-body" valign="top">{!! nl2br(e($qurban->nama_lain)) !!}</td>
-        <td class="table-body" valign="top">{!! nl2br(e($qurban->permintaan)) !!}</td>
+        <td class="table-body">{!! nl2br(e($qurban->nama_lain)) !!}</td>
+        <td class="table-body">{!! nl2br(e($qurban->permintaan)) !!}</td>
         <td class="table-body">{{$qurban->alamat}}</td>
         <td class="table-body">{{$qurban->nomor_handphone}}</td>
+        <td class="table-body">{{$qurban->disaksikan}} <br/> {{$qurban->keterangan}}</td>
     </tr>
     @endforeach
 </table>
