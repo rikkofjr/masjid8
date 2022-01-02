@@ -14,7 +14,7 @@
 <div class="section-header">
     <h1>Laporan ZIS a.n {{$zis->atas_nama}} Tahun {{$nowHijri}}H / {{$nowMasehi}}M</h1>
     <div class="section-header-breadcrumb">
-		<a class="btn btn-icon icon-left btn-primary" href="{{ route('adminzis.index') }}"> <i class="fas fa-pencil"></i> Tambah Data</a>
+		<a class="btn btn-icon icon-left btn-primary" href="{{ route('adminzis.index') }}"> <i class="fas"></i> Data Zis</a>
 	</div>
 	
 </div>
@@ -92,8 +92,8 @@
 </div>
 @endsection
 @section('DynamicScript')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<script src="{{asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
+@can('outsource-delete')
 <script type="text/javascript">
  
  $('.show_delete_confirm').click(function(event) {
@@ -115,6 +115,7 @@
   });
 
 </script>
+@endcan
 @endsection
 
 @section('mainContentPopup')

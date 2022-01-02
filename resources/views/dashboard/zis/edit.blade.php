@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     {{ Form::label('zis_name', 'Jenis Zakat') }}
-                    {{ Form::select('zis_name[]', $ZisType, $JamaahZisType, array('class'=>'form-control', 'placeholder' => 'Pilih Jenis Zakat')) }}
+                    {{ Form::select('zis_name', $ZisType, $JamaahZisType, array('class'=>'form-control')) }}
                 </div>
 
                 <div class="form-group">
@@ -71,7 +71,7 @@
 
                         <div class="form-group">
                             {{ Form::label('uang_infaq', 'Uang Infaq') }}
-                            {{ Form::text('uang_infaq', null, array('class' => 'form-control number-form currency')) }}
+                            {{ Form::text('uang_infaq', null, array('class' => 'form-control number-form currency1')) }}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -98,7 +98,7 @@
                 </div>
                 <br/>
 
-                {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
+                {{ Form::submit('Rubah Data', array('class' => 'btn btn-primary')) }}
 
                 {{ Form::close() }}
 
@@ -114,5 +114,11 @@ var cleaveC = new Cleave('.currency', {
   numeral: true,
   numeralThousandsGroupStyle: 'thousand'
 });
+
+var cleaveC = new Cleave('.currency1', {
+        numeral: true,
+        delimeter: '.',
+        numeralThousandsGroupStyle: 'thousand'
+    });
 </script>
 @endsection

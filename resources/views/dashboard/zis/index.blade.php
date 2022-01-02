@@ -34,18 +34,27 @@
                 <h6 class="m-0 font-weight-bold text-primary">Laporan ZIS Tahun {{$nowHijri}}H / {{$nowMasehi}}M</h6>
             </div>
 			<div class="card-body">
+                <select data-column="8" class="form-control filter-select" name="" id="">
+                    <option value="" hidden>Pilih Amil</option>
+                    @foreach($namaAmilPenginput as $namaAmil)
+                        <option value="{{$namaAmil->data_amil->name}}">{{$namaAmil->data_amil->name}}</option>
+                    @endforeach
+                </select>
+                <br>
 				<div class="table-responsive">
                     <table class="table table-striped" id="data-table">
+                        
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Atas Nama</th>
-                                <th>Jenis Zakat</th>
-                                <th>Uang Zakat</th>
-                                <th>Uang Infaq</th>
-                                <th>Beras Zakat</th>
-                                <th>Beras Infaq</th>
+                                <td>No</td>
+                                <td>Tanggal</td>
+                                <td>Atas Nama</td>
+                                <td>Jenis Zakat</td>
+                                <td>Uang Zakat</td>
+                                <td>Uang Infaq</td>
+                                <td>Beras Zakat</td>
+                                <td>Beras Infaq</td>
+                                <td>Amil</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,6 +79,20 @@
                 @endforeach
             </div>
         </div>
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">Pemasukan ZIS hari ini</h6>
+            </div>
+            <div class="card-body">
+                <strong>Uang</strong><br>
+                Uang : {{number_format($zisHariIni->sum('uang'))}} <br>
+                Uang Infaq : {{number_format($zisHariIni->sum('uang_infaq'))}}
+                <br>
+                <hr><strong>Beras</strong><br>
+                Beras : {{$zisHariIni->sum('beras')}} <br>
+                Beras Infaq : {{$zisHariIni->sum('beras_infaq')}}
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -86,13 +109,19 @@
                     columns : [
                         {data:'DT_RowIndex',name:'DT_RowIndex'},
                         {data: 'created_at', name: 'created_at'},
-                        {data: 'atas_nama', name: 'atas_nama'},
+                        {data: 'atas_nama', name: 'atas_nama', orderable:false},
                         {data: 'id_zis_typex', name: 'id_zis_typex'},
                         {data: 'uang', name: 'uang', className: 'text-format-number'},
                         {data: 'uang_infaq', name: 'uang_infaq', className: 'text-format-number'},
                         {data: 'beras', name: 'beras', className: 'text-format-number'},
                         {data: 'beras_infaq', name: 'beras_infaq', className: 'text-format-number'},
+                        {data: 'amil', name: 'amil', orderable:false}
                     ]
+                });
+                $('.filter-select').change(function(){
+                    table.column($(this).data('column'))
+                    .search($(this).val())
+                    .draw();
                 });
             });
         </script>

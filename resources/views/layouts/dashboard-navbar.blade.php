@@ -1,20 +1,13 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{route('adminIndex')}}"><i class="fas fa-home fa-5x"></i></a>
+            <a href="{{route('adminIndex')}}"><i class="fas fa-home"></i></a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{route('adminIndex')}}"><i class="fas fa-home"></i></a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="index-0.html">General Dashboard</a></li>
-                        <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-                    </ul>
-                </li>
             @can('dkm-create')    
             <li class="menu-header">DKM</li>
             <!--Jamaah-->
@@ -48,13 +41,14 @@
             </li>
             <!--Qurban-->
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class=""><img src="{{asset('img/svg/kambing.svg')}}" width="20px" alt=""><span></i>Qurban</span></a>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class=""><img src="{{asset('img/svg/kambing.svg')}}" width="20px" alt=""></i><span>Qurban</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('adminqurban.create')}}">Tambah Penerimaan</a></li>
                     <li><a class="nav-link" href="{{route('adminqurban.index')}}">Data Penerimaan Hewan</a></li>
                 </ul>
             </li>
             @endcan
+            @role('Admin')
             <li class="menu-header">Dashboard Admin</li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user"></i> <span>User Manajemen</span></a>
@@ -63,6 +57,7 @@
                     <li><a class="nav-link" href="{{route('adminroles.index')}}">Role</a></li>
                 </ul>
             </li>
+            @endrole
         </ul>
     </aside>
 </div>

@@ -23,12 +23,38 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h4>Rekap Penerimaan data Pencatatan Tanggal <br/> 
-                Tanggal Hijriah : {{$nowHijri}} <br/>
-                Tanggal Masehi :  {{$nowMasehi}}</h4>
+                <h4>Semua Data ZIS<br/>
             </div>
-            <div class="card-body">
-
+            <div class="card-body table-responsive">
+                <div class="row">
+                    <select data-column="1" class="form-control filter-select" name="" id="">
+                        <option value="" hidden>Pilih Tahun</option>
+                        <option value="">Semua Tahun</option>
+                        @foreach($year as $yearDate)
+                            <option value="{{$yearDate}}">{{$yearDate}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <br>
+                <table class="table table-striped" id="data-table">
+                    <thead>
+                        <tr>
+                            <td>No</td>
+                            <td>Hijri</td>
+                            <td>Tanggal</td>
+                            <td>Atas Nama</td>
+                            <td>Jenis Zakat</td>
+                            <td>Uang Zakat</td>
+                            <td>Uang Infaq</td>
+                            <td>Beras Zakat</td>
+                            <td>Beras Infaq</td>
+                            <td>Amil</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -86,6 +112,7 @@
 </div>
 @endsection
 @section('DynamicScript')
+<script src="{{asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript">
@@ -109,4 +136,32 @@
   });
 
 </script>
+<script src="{{asset('dashboard/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+        <script>
+            $(function(){
+                var table = $('#data-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('adminApiAllZisData') }}",
+                    columns : [
+                        {data:'DT_RowIndex',name:'DT_RowIndex'},
+                        {data: 'hijri', name: 'hijri'},
+                        {data: 'created_at', name: 'created_at'},
+                        {data: 'atas_nama', name: 'atas_nama', orderable:false},
+                        {data: 'id_zis_typex', name: 'id_zis_typex'},
+                        {data: 'uang', name: 'uang', className: 'text-format-number'},
+                        {data: 'uang_infaq', name: 'uang_infaq', className: 'text-format-number'},
+                        {data: 'beras', name: 'beras', className: 'text-format-number'},
+                        {data: 'beras_infaq', name: 'beras_infaq', className: 'text-format-number'},
+                        {data: 'amil', name: 'amil', orderable:false}
+                    ]
+                });
+                $('.filter-select').change(function(){
+                    table.column($(this).data('column'))
+                    .search($(this).val())
+                    .draw();
+                });
+            });
+        </script>
 @endsection

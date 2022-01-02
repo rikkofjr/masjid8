@@ -134,7 +134,7 @@ input[type="radio"]:focus + span {
                         @foreach($datajamaah as $dj)
                         <tr>
                             <td>{{$no++}}</td>
-                            <td>{{$dj->nama}} / {{$dj->id}} </td>
+                            <td>{{$dj->nama}}</td>
                             <td>{{date("Y") - date("Y" ,strtotime($dj->tanggal_lahir))}}</td>
                             <td>
                             <form method="POST" action="{{route('adminSoftDeleteJamaah', $dj->id)}}">
@@ -198,10 +198,10 @@ input[type="radio"]:focus + span {
                                 </span>
                                 <br/>
                             </label>								
-                            <label for="Perempuan" class="material-icons">
-                                <input type="radio" name="jenis_kelamin" id="Perempuan" value="Perempuan" />
+                            <label for="Wanita" class="material-icons">
+                                <input type="radio" name="jenis_kelamin" id="Wanita" value="Wanita" />
                                 <span>
-                                    <i class="fas fa-female fa-2x"></i> Perempuan
+                                    <i class="fas fa-female fa-2x"></i> Wanita
                                 </span>
                                 <br/>
                             </label>
@@ -228,7 +228,7 @@ input[type="radio"]:focus + span {
 		<script src="{{asset('startbootstrap/vendor/datatables/jquery.dataTables.min.js')}}"></script>
 		<script src="{{asset('startbootstrap/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
         
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="{{asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
         <script type="text/javascript">
             $('.jamaah_delete_confirm').click(function(event) {
                 var form =  $(this).closest("form");

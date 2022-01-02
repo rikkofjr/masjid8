@@ -44,21 +44,16 @@ class ZisController extends Controller
         $nowHijri = \GeniusTS\HijriDate\Date::today()->format('j F, Y');
         $nowMasehi = Carbon::today()->format('j F, Y');
         $zisType = ZisType::select('id', 'zis_type')->get();
-        return view('dashboard.zis.admin-zis', compact('nowMasehi', 'nowHijri','zisType'));
+        $year = Zis::select(DB::raw('YEAR(hijri) as year'))->distinct()->get()->pluck('year');
+        return view('dashboard.zis.admin-zis', compact('nowMasehi', 'nowHijri','zisType','year'));
     }
-    // public function index()
-    // {
-    //     $pendapatanHarian = Zis::orderBy('created_at')
-    //     $nowHijri = \GeniusTS\HijriDate\Date::today()->format('j F, Y');
-    //     $nowMasehi = Carbon::today()->format('j F, Y');
-    //     return view('dashboard.zis.index', compact('nowHijri', 'nowMasehi'));
-    // }
+
     public function rekapHarian($zis_type){
         $nowHijri = \GeniusTS\HijriDate\Date::today()->format('Y');
         $nowMasehi = Carbon::today()->format('Y');
         $zisType = ZisType::where('id', $zis_type)->get();
         $zisHarian = $zisHarian = Zis::select(
-            DB::raw('DATE(created_at) as date'), 
+            DB::raw('DATE(hijri) as date'), 
             DB::raw('sum(uang) as uang_harian'), 
             DB::raw('sum(uang_infaq) as uang_infaq_harian'),
             DB::raw('sum(beras) as beras_harian'),
@@ -67,7 +62,7 @@ class ZisController extends Controller
             )
         ->groupBy('date')
         ->where('id_zis_type', $zis_type)
-        ->whereYear('created_at', $nowMasehi)
+        ->whereYear('hijri', $nowHijri)//getting daily data from hijriah year
         ->get();
 
         $zisTahunan = Zis::select(
@@ -80,6 +75,8 @@ class ZisController extends Controller
             )
         ->groupBy('date')
         ->where('id_zis_type', $zis_type)
+        ->orderBy('hijri', 'DESC')
+        ->take(10)
         ->get();
         //dd($zisType);
         $jumlahUangTotal = Zis::where('id_zis_type', $zis_type)->whereYear('hijri',$nowHijri)->sum('uang');
@@ -101,6 +98,7 @@ class ZisController extends Controller
     public function index(){
         
         $nowHijri = \GeniusTS\HijriDate\Date::today()->format('j F, Y');
+        $nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
         $nowMasehi = Carbon::today()->format('Y');
         $zisType = ZisType::orderBy('zis_type', 'DESC')
         ->withCount(['zis', 'zis as zis_by_year_count' =>
@@ -108,7 +106,14 @@ class ZisController extends Controller
                 $query->whereYear('hijri', \GeniusTS\HijriDate\Date::today()->format('Y'));
             }])
         ->get();
-        return view('dashboard.zis.index', compact('nowHijri', 'nowMasehi','zisType'));        
+        $namaAmilPenginput = Zis::whereYear('hijri', $nowHijriYear)->select('amil')->distinct()->get();
+        //dd($nowHijriYear);
+
+        $zisHariIni = zis::select('uang', 'uang_infaq', 'beras', 'beras_infaq')->whereDate('created_at', Carbon::today())->get();
+        
+        
+        //dd($zisHariIni);
+        return view('dashboard.zis.index', compact('nowHijri', 'nowMasehi','zisType','namaAmilPenginput', 'zisHariIni'));        
     }
 
     /**
@@ -223,7 +228,7 @@ class ZisController extends Controller
         ],$messages);
 
         $zis = Zis::findOrFail($id);
-        $zis->zis_name = $request->zis_name;
+        $zis->id_zis_type = $request->zis_name;
         //$zis->amil = Auth::user()->id;
         $zis->atas_nama = $request->atas_nama;
         $zis->nama_lain = $request->nama_lain;
@@ -242,6 +247,8 @@ class ZisController extends Controller
         $zis->beras_infaq = $request->beras_infaq;
         $zis->hijri = \GeniusTS\HijriDate\Date::today();
         $zis->save();
+        Alert::success('Berhasil Merubah ZIS', 'a/n '.$zis->atas_nama.'');
+        return redirect()->route('adminzis.show', $id);
     }
 
     /**
@@ -286,11 +293,60 @@ class ZisController extends Controller
             ->editColumn(('created_at'), function ($dataFitrah){
                return $dataFitrah->created_at ? with (new carbon($dataFitrah->created_at))->format('d/m/Y | H:i') : '';
             })
+            ->addColumn(('amil'), function($dataFitrah){
+                return $dataFitrah->amil ? with ($dataFitrah->data_amil->name) :'';
+            })
             ->addIndexColumn()
             ->removeColumn('updated_at','nama_lain','amil_editor', 'deleted_at', 'id_zis_type')
             ->rawColumns(['id_zis_typex', 'atas_nama'])
             //->addIndexColumn()
             ->make();
+    }
+
+    public function getAllZisData(){
+        $dataFitrah = Zis::orderBy('created_at','desc')
+        ->get(); 
+        return Datatables::of($dataFitrah)
+            ->addColumn(('id_zis_typex'), function ($dataFitrah){
+                return $dataFitrah->jenis_zakat->zis_type;
+            })
+            ->editColumn(('uang'), function ($dataFitrah){
+                return $dataFitrah->uang ? with (number_format($dataFitrah->uang)) : '';
+            })
+            ->editColumn(('uang_infaq'), function ($dataFitrah){
+                return $dataFitrah->uang_infaq ? with (number_format($dataFitrah->uang_infaq)) : '';
+            })
+            ->editColumn(('atas_nama'), function($dataFitrah){
+                $btn = '<a href="'.route('adminzis.show', $dataFitrah->id).'">'.$dataFitrah->atas_nama.'</a>';
+                return $btn;
+            })
+            ->editColumn(('created_at'), function ($dataFitrah){
+               return $dataFitrah->created_at ? with (new carbon($dataFitrah->created_at))->format('d/m/Y') : '';
+            })
+            ->editColumn(('hijri'), function ($dataFitrah){
+                return $dataFitrah->hijri ? with (new carbon($dataFitrah->hijri))->format('Y') : '';
+             })
+            ->addColumn(('amil'), function($dataFitrah){
+                return $dataFitrah->amil ? with ($dataFitrah->data_amil->name) :'';
+            })
+            ->addIndexColumn()
+            ->removeColumn('updated_at','nama_lain','amil_editor', 'deleted_at', 'id_zis_type')
+            ->rawColumns(['id_zis_typex', 'atas_nama'])
+            //->addIndexColumn()
+            ->make();
+    }
+    public function getAllZisDataByYear(){
+        $zis =  Zis::select(
+            DB::raw('YEAR(hijri) as year'), 
+            DB::raw('sum(uang) as zis_uang'), 
+            DB::raw('sum(uang_infaq) as zis_uang_infaq'),
+            DB::raw('sum(beras) as zis_beras'),
+            DB::raw('sum(beras_infaq) as zis_beras_infaq'),
+            DB::raw('sum(jumlah_jiwa) as jiwa')
+        )
+        ->groupBy('year')
+        ->get();
+        return response()->json($zis);
     }
     //
     public function PrintZakatJamaah($id){

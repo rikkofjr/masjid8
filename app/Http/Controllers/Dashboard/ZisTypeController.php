@@ -22,6 +22,9 @@ use Alert;
 
 class ZisTypeController extends Controller
 {
+    function __construct(){
+        $this->middleware('permission:outsource-delete', ['only' => ['store' ,'destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

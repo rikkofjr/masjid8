@@ -15,6 +15,9 @@ Tambah Data ZIS
     .number-form {
         text-align: right;
     }
+    .mandatory{
+        color:#ff0000;
+    }
 </style>
 <div class="row">
     <div class="col-md-12">
@@ -36,13 +39,19 @@ Tambah Data ZIS
 
 
                 <div class="form-group">
-                    {{ Form::label('zis_name', 'Jenis Zakat') }}
+                    {{ Form::label('zis_name', 'Jenis Zakat') }} <b class="mandatory">*</b>
                     {{ Form::select('zis_name', $ZisType, null, array('class'=>'form-control', 'placeholder'=>'Plih Jenis Zakat......')) }}
+                    @if($errors->has('zis_name'))
+                        <small class="mandatory">{{ $errors->first('zis_name') }}</small>
+                    @endif
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('atas_nama', 'Atas Nama') }}
+                    {{ Form::label('atas_nama', 'Atas Nama') }} <b class="mandatory">*</b>
                     {{ Form::text('atas_nama', '', array('class' => 'form-control')) }}
+                    @if($errors->has('atas_nama'))
+                        <small class="mandatory">{{ $errors->first('atas_nama') }}</small>
+                    @endif
                 </div>
 
                 <div class="form-group">
@@ -51,14 +60,13 @@ Tambah Data ZIS
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('jumlah_jiwa', 'Jumlah Jiwa') }}
+                    {{ Form::label('jumlah_jiwa', 'Jumlah Jiwa') }} <b class="mandatory">*</b>
                     {{ Form::number('jumlah_jiwa', '', array('class' => 'form-control')) }}
+                    
+                    @if($errors->has('jumlah_jiwa'))
+                        <small class="mandatory">{{ $errors->first('jumlah_jiwa') }}</small>
+                    @endif
                 </div>
-                @if($errors->has('jumlah_jiwa'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('jumlah_jiwa') }}</strong>
-                </span>
-                @endif
 
                 <div class="row">
                     <div class="col-md-6">

@@ -85,7 +85,8 @@ Route::group(['prefix' => 'api'],function(){
 
     //zis
     Route::get('/zis-data-tahun-ini', [ZisController::class, 'getZisDataByThisYear'])->name('ApiZisDataByThisYear');
-
+    Route::get('/zis-data-tahunan', [ZisController::class, 'getAllZisDataByYear'])->name('getAllZisDataByYear');
+    Route::get('/zis-semua-data', [ZisController::class, 'getAllZisData'])->name('ApiAllZisData');
     //Qurban
     Route::get('/qurban-kambing-tahun-ini', [QurbanController::class, 'getQurbanKambing'])->name('ApiQurbanKambingByThisYear');
     Route::get('/qurban-sapi-tahun-ini', [QurbanController::class, 'getQurbanSapi'])->name('ApiQurbanSapiByThisYear');
