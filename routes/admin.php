@@ -91,6 +91,7 @@ Route::group(['prefix' => 'api'],function(){
     Route::get('/qurban-kambing-tahun-ini', [QurbanController::class, 'getQurbanKambing'])->name('ApiQurbanKambingByThisYear');
     Route::get('/qurban-sapi-tahun-ini', [QurbanController::class, 'getQurbanSapi'])->name('ApiQurbanSapiByThisYear');
 
+    Route::get('/tes-function', [MasjidProfileController::class, 'tesFunction']);
 
 
 });

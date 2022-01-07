@@ -30,4 +30,8 @@ class MasjidProfileController extends Controller
         $zis->hijri = \GeniusTS\HijriDate\Date::today();
         $zis->save();
     }
+    public function tesFunction(){
+        $getFirstUserId = \App\Models\User::pluck('id')->first();
+        return $getFirstUserId;
+    }
 }

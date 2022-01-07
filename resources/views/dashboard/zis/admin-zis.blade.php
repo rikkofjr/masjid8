@@ -73,6 +73,7 @@
                 @endif
             <div class="card-body">
                 <div class="row">
+                    @can('outsource-delete')
                     <div class="col-8">
                         {{ Form::open(array('route' => 'adminzis-type.store'))}}
                         <div class="form-group">
@@ -83,17 +84,21 @@
                         {{ Form::submit('Tambah', array('class' => 'btn btn-primary')) }}
                         {{ Form::close() }}
                     </div>
+                    @endcan
                 </div>
                 <hr/>
                 <div class="row">
                     <table class="table table-bordered table-striped">
                         <tr>
                             <td>Type Zakat</td>
+                            @can('outsource-delete')
                             <td>Hapus</td>
+                            @endcan
                         </tr>
                         @foreach($zisType as $ztp)
                         <tr>
                             <td>{{$ztp->zis_type}}</td>
+                            @can('outsource-delete')
                             <td>
                                 <form method="POST" action="{{route('adminzis-type.destroy', $ztp->id)}}">
                                     @csrf
@@ -101,6 +106,7 @@
                                     <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Hapus</button>
                                 </form>
                             </td>
+                            @endcan
                         </tr>
                         @endforeach
                     </table>
