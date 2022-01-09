@@ -80,6 +80,7 @@ Route::group(['prefix' => 'api'],function(){
     Route::get('/kas-penerimaan', [KasPenerimaanController::class, 'getAllDataPenerimaan'])->name('ApiAllKasPenerimaan');
 
     //Jamaah
+    Route::get('/jamaah', [DataJamaahController::class, 'getJamaah'])->name('ApiAllJamaah');
     Route::get('/jamaah-internal', [AlamatJamaahController::class, 'getJamaahInternal'])->name('ApiAllJamaahInternal');
     Route::get('/jamaah-external', [AlamatJamaahController::class, 'getJamaahExternal'])->name('ApiAllJamaahExternal');
 

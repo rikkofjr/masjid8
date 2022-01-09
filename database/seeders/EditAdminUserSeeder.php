@@ -20,7 +20,7 @@ class EditAdminUserSeeder extends Seeder
             'username' => 'Admin', 
             'name' => 'Admin', 
             'email' => 'admin@admin.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('admin')
         ]);
      
         $user->assignRole('Admin');

@@ -19,6 +19,7 @@ use Alert;
 //use spesific models
 use App\Models\AlamatJamaah;
 use App\Models\DataJamaah;
+use App\Models\MasjidProfile;
 
 class DataJamaahController extends Controller
 {
@@ -29,7 +30,8 @@ class DataJamaahController extends Controller
      */
     public function index()
     {
-        //
+        $masjidProfile = MasjidProfile::first();
+        return view('dashboard.jamaah.jamaah.index', compact('masjidProfile'));
     }
 
     /**
@@ -155,5 +157,19 @@ class DataJamaahController extends Controller
         $aj->delete();
         Alert::success('Berhasil Menghapus Data', 'Data atas nama <b>'.$aj->nama.' </b> berhasil dihapus');
         return redirect()->route('adminalamat-jamaah.show', $aj->id_alamat_jamaah);
+    }
+    public function getJamaah(){
+        $data = DataJamaah::get();
+            return Datatables::of($data)
+            ->addIndexColumn()
+            ->editColumn(('tanggal_lahir'), function($data){
+                return $data->tanggal_lahir ? with (date("Y") - date("Y" ,strtotime($data->tanggal_lahir))) :'';
+            })
+            ->addColumn('action',function($datanya){
+                $btn = '<a class="btn btn-primary btn-sm" href="'.route('adminalamat-jamaah.show', $datanya->id_alamat_jamaah).'"><i title="Lihat Keluarga" class="fas fa-eye" style="color:#fff;"></i></a>';
+                return $btn;
+            })
+            ->removeColumn('id','penginput', 'editor','updated_at', 'created_at','deleted_at')
+            ->rawColumns(['action'])->make(true);
     }
 }

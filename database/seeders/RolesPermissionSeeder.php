@@ -50,7 +50,7 @@ class RolesPermissionSeeder extends Seeder
         $role = Role::create(['name' => 'Outsource Staf'])
         ->givePermissionTo(['outsource-create', 'outsource-edit']);
         
-        $role = Role::create(['name' => 'DKM'])
+        $role = Role::create(['name' => 'Outsource Head'])
         ->givePermissionTo(['outsource-create', 'outsource-edit', 'outsource-edit']);
 
     }
