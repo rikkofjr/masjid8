@@ -26,7 +26,7 @@
 6. run npm <br/>
     <code>
         1. npm install <br/>
-        2. npm run dev <br/>
+        2. npm run dev
         or <br/>
         npm install && npm run dev 
     </code>
