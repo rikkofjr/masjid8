@@ -17,7 +17,7 @@ Tambah Data Penerimaan Qurban
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4>Tambah Penerimaan ZIS - {{$nowMasehiDate}} | {{$nowHijriYear}}</h4>
+                <h4>Tambah Penerimaan Qurban - {{$nowMasehiDate}} | {{$nowHijriYear}}</h4>
             </div>
             <div class="card-body">
                 @if (count($errors) > 0)
