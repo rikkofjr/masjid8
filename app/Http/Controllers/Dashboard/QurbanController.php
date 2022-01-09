@@ -238,7 +238,7 @@ class QurbanController extends Controller
         $nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
         $dataQurban = Qurban::orderBy('created_at', 'ASC')->where('jenis_hewan', $jenis_hewan)->whereYear('hijri', $nowHijriYear)->get();
         $pdf = PDF::loadview('dashboard.qurban.print.print-full',['dataQurban'=>$dataQurban, 'nowHijriYear'=>$nowHijriYear, 'jenis_hewan'=>$jenis_hewan])->setPaper('a4','landscape');
-        if(isEmpty($dataQurban)){
+        if($dataqurban->isEmpty()){
             abort(404);
         }else{
             return $pdf->stream('qurban'.$jenis_hewan.'.pdf');
