@@ -13,12 +13,12 @@
 
 4. configure your database at .env file <br/>
     <code>
-    DB_CONNECTION= <br/>
-    DB_HOST= <br/>
-    DB_PORT= <br/>
-    DB_DATABASE=your db name <br/>
-    DB_USERNAME= <br/>
-    DB_PASSWORD= <br/>
+    DB_CONNECTION=
+    DB_HOST= 
+    DB_PORT= 
+    DB_DATABASE=your db name
+    DB_USERNAME= 
+    DB_PASSWORD= 
     </code><br/>
 
 5. install dependencies <br/>
