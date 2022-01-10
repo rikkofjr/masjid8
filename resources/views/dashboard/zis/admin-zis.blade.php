@@ -3,7 +3,7 @@
     ZIS Dashboard
 @endsection
 @section('DynamicCss')
-    <link rel="stylesheet" href="{{asset('dashboard/vendor/datatables/buttons.dataTables.min.css')}}">
+   <!-- <link rel="stylesheet" href="{{asset('dashboard/vendor/datatables/buttons.dataTables.min.css')}}">-->
 
 @endsection
 @section('titleBar')
@@ -18,8 +18,13 @@
 
 <!--Row2-->
 <style type="text/css">
-    .number-form{
+    .text-format-number{
         text-align:right;
+    }
+    .dataTables_filter {
+    width: 50%;
+    float: right;
+    text-align: right;
     }
 </style>
 <div class="row">
@@ -159,6 +164,17 @@
                 var table = $('#data-table').DataTable({
                     processing: true,
                     serverSide: true,
+                    "bInfo" : true,
+                    language: {
+                        searchPlaceholder: "Cari Data"
+                    },
+                    dom: 'lBfrtip',
+                    buttons: [
+                        {extend : 'excel', className : 'btn btn-primary'},
+                        {extend : 'pdf', className : 'btn btn-primary'},
+                        {extend : 'print', className : 'btn btn-primary'},
+                    ],
+                    "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
                     ajax: "{{ route('adminApiAllZisData') }}",
                     columns : [
                         {data:'DT_RowIndex',name:'DT_RowIndex'},
@@ -172,8 +188,6 @@
                         {data: 'beras_infaq', name: 'beras_infaq', className: 'text-format-number'},
                         {data: 'amil', name: 'amil', orderable:false}
                     ]
-                    dom: 'Bfrtip',
-                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
                 });
                 $('.filter-select').change(function(){
                     table.column($(this).data('column'))
