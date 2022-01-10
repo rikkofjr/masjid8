@@ -32,5 +32,15 @@
         or 
         npm install && npm run dev 
     ```
-7. Run the server
+7. Migrate Database
+    <code>php artisan migrate</code>
+
+8. Run Seeder
+    <code>php artisan db:seed</code>
+
+9. Run the server
     <code>php artisan serve</code>
+
+8. Login Wth
+    Username : admin 
+    password : admin
