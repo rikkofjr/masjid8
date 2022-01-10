@@ -186,7 +186,6 @@ return [
 
         //Yajra Datatables
         Yajra\Datatables\DatatablesServiceProvider::class,
-
         //barcode
         Milon\Barcode\BarcodeServiceProvider::class,
 

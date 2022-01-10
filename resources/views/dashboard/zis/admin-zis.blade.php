@@ -2,7 +2,10 @@
 @section('pageTitle')
     ZIS Dashboard
 @endsection
+@section('DynamicCss')
+    <link rel="stylesheet" href="{{asset('dashboard/vendor/datatables/buttons.dataTables.min.css')}}">
 
+@endsection
 @section('titleBar')
 <div class="section-header">
     <h1>ZIS Dashboard</h1>
@@ -144,6 +147,13 @@
 </script>
 <script src="{{asset('dashboard/vendor/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('dashboard/vendor/datatables/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('dashboard/vendor/datatables/buttons.flash.min.js')}}"></script>
+<script src="{{asset('dashboard/vendor/datatables/jszip.min.js')}}"></script>
+<script src="{{asset('dashboard/vendor/datatables/pdfmake.min.js')}}"></script>
+<script src="{{asset('dashboard/vendor/datatables/vfs_fonts.js')}}"></script>
+<script src="{{asset('dashboard/vendor/datatables/buttons.html5.min.js')}}"></script>
+<script src="{{asset('dashboard/vendor/datatables/buttons.print.min.js')}}"></script>
         <script>
             $(function(){
                 var table = $('#data-table').DataTable({
@@ -162,6 +172,8 @@
                         {data: 'beras_infaq', name: 'beras_infaq', className: 'text-format-number'},
                         {data: 'amil', name: 'amil', orderable:false}
                     ]
+                    dom: 'Bfrtip',
+                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
                 });
                 $('.filter-select').change(function(){
                     table.column($(this).data('column'))
