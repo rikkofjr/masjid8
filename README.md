@@ -12,23 +12,25 @@
     <code>php artisan key:generate</code> <br/>
 
 4. configure your database at .env file <br/>
-    <code>
+    ```php
     DB_CONNECTION=
     DB_HOST= 
     DB_PORT= 
     DB_DATABASE=your db name
     DB_USERNAME= 
     DB_PASSWORD= 
-    </code><br/>
+    ```
+    <br/>
 
 5. install dependencies <br/>
     <code>composer install</code><br/>
 6. run npm <br/>
-    <code>
-        1. npm install <br/>
+    ```bash
+    Run on CLI
+        1. npm install 
         2. npm run dev
-        or <br/>
+        or 
         npm install && npm run dev 
-    </code>
+    ```
 7. Run the server
     <code>php artisan serve</code>
