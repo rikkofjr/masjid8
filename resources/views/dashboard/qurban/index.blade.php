@@ -129,7 +129,7 @@
                         {data: 'atas_nama', name: 'atas_nama', orderable: false},
                         {data: 'alamat', name: 'alamat', orderable: false},
                         {data: 'permintaan', name: 'permintaan', orderable: false},
-                        {data: 'disaksikan', name: 'disaksikan'},
+                        {data: 'disaksikan', name: 'disaksikan', orderable: false},
                         {data: 'keterangan', name: 'keterangan', orderable: false},
                         {data: 'id', name: 'id', orderable: false, searchable:false},
                     ]
@@ -146,7 +146,7 @@
                         {data: 'atas_nama', name: 'atas_nama', orderable: false},
                         {data: 'alamat', name: 'alamat', orderable: false},
                         {data: 'permintaan', name: 'permintaan', orderable: false},
-                        {data: 'disaksikan', name: 'disaksikan'},
+                        {data: 'disaksikan', name: 'disaksikan', orderable: false},
                         {data: 'keterangan', name: 'keterangan', orderable: false},
                         {data: 'id', name: 'id', orderable: false, searchable:false},
                     ]

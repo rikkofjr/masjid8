@@ -42,5 +42,5 @@
     <code>php artisan serve</code>
 
 8. Login Wth
-    Username : admin 
+    Username : admin <br/>
     password : admin

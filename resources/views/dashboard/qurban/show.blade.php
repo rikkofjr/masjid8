@@ -86,13 +86,14 @@ Qurban Atas Nama : {{$qurban->atas_nama}}
                     <i class="fab fa-whatsapp text-white-50"></i>
                     Hubungi
                 </a>
+                
                 @can('outsource-delete')
 
-                <form method="POST" action="{{route('adminSoftDeleteZis', $qurban->id)}}">
+                <!--<form method="POST" action="{{route('adminSoftDeleteZis', $qurban->id)}}">
                     @csrf
                     <input name="_method" type="hidden" value="DELETE">
                     <button type="submit" class="m-1 btn btn-xs btn-danger btn-flat show_delete_confirm" data-toggle="tooltip">Hapus</button>
-                </form>
+                </form>-->
                 @endcan
 
             </div>

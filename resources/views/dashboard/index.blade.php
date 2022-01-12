@@ -13,11 +13,12 @@ Selamat Datang pada sistem informasi Masjid {{env('APP_NAME')}}
 
 @section('titleBar')
 <div class="section-header">
-    <h1>Selamat Datang pada sistem informasi Masjid</h1>
+    <h1>Selamat Datang pada sistem informasi Masjid {{$masjidProfile->nama_masjid}}</h1>
 </div>
 @endsection
 
 @section('mainContent')
+<livewire:dashboard.dashboard-index /> 
 <div class="row">
     <div class="col-md-8">
         <div class="row">
