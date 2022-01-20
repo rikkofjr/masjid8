@@ -35,8 +35,8 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-wallet"></i> <span>ZIS</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('adminzis.create')}}">Tambah Penerimaan ZIS</a></li>
-                    <li><a class="nav-link" href="{{route('adminzis.index')}}">Data Penerimaan ZIS</a></li>
-                    <li><a class="nav-link" href="{{route('adminZisDashboard')}}">Zis</a></li>
+                    <li><a class="nav-link" href="{{route('adminzis.index')}}">Penerimaan Tahun Ini</a></li>
+                    <li><a class="nav-link" href="{{route('adminZisDashboard')}}">Dashboard Zis</a></li>
                 </ul>
             </li>
             <!--Qurban-->
@@ -44,7 +44,8 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class=""><img src="{{asset('img/svg/kambing.svg')}}" width="20px" alt=""></i><span>Qurban</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('adminqurban.create')}}">Tambah Penerimaan</a></li>
-                    <li><a class="nav-link" href="{{route('adminqurban.index')}}">Data Penerimaan Hewan</a></li>
+                    <li><a class="nav-link" href="{{route('adminqurban.index')}}">Penerimaan Tahun Ini</a></li>
+                    <li><a class="nav-link" href="{{route('adminqurbanDashboard')}}">Dashboard Qurban</a></li>
                 </ul>
             </li>
             @endcan

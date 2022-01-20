@@ -55,6 +55,8 @@ Route::group(['middleware' => ['permission:outsource-create']], function(){
 
     //qurban
     Route::resource('qurban', QurbanController::class);
+    Route::get('qurban-dashboard', [QurbanController::class, 'qurbanDashboard'])->name('qurbanDashboard');
+
 });
 
 //can do soft delete
@@ -91,6 +93,7 @@ Route::group(['prefix' => 'api'],function(){
     //Qurban
     Route::get('/qurban-kambing-tahun-ini', [QurbanController::class, 'getQurbanKambing'])->name('ApiQurbanKambingByThisYear');
     Route::get('/qurban-sapi-tahun-ini', [QurbanController::class, 'getQurbanSapi'])->name('ApiQurbanSapiByThisYear');
+    Route::get('/qurban-semua-data', [QurbanController::class, 'getAllQurbanData'])->name('ApiAllQurbanData')->middleware('can:dkm-create');
 
     Route::get('/tes-function', [MasjidProfileController::class, 'tesFunction']);
 

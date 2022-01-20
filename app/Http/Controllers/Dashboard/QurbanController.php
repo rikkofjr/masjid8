@@ -26,7 +26,11 @@ use App\Models\MasjidProfile;
 class QurbanController extends Controller
 {
     public function qurbanDashboard(){
-
+        $nowHijri = \GeniusTS\HijriDate\Date::today()->format('j F, Y');
+        $nowMasehi = Carbon::today()->format('j F, Y');
+        $year = Qurban::select(DB::raw('YEAR(hijri) as year'))->distinct()->get()->pluck('year');
+        $jenisHewan = Qurban::select(DB::raw('jenis_hewan as jenis_hewan'))->distinct()->get()->pluck('jenis_hewan');
+        return view('dashboard.qurban.admin-qurban', compact('nowMasehi', 'nowHijri','jenisHewan','year'));
     }
     /**
      * Display a listing of the resource.
@@ -231,6 +235,32 @@ class QurbanController extends Controller
             ->addIndexColumn()
             ->removeColumn('updated_at','deleted_at', 'amil')
             ->rawColumns(['id','permintaan'])
+            ->make();
+    }
+    public function getAllQurbanData(){
+        $dataQurban = Qurban::orderBy('created_at', 'ASC')->get();
+        return Datatables::of($dataQurban)
+            ->editColumn(('amil'), function($dataQurban){
+                return $dataQurban->amil ? with ($dataQurban->data_amil->name): '';
+            })
+            ->editColumn(('nomor_hewan'), function($dataQurban){
+                return $dataQurban->nomor_hewan ? with ((int)filter_var($dataQurban->nomor_hewan, FILTER_SANITIZE_NUMBER_INT)): '';
+            })
+            ->editColumn(('atas_nama'), function($dataQurban){
+                return $dataQurban->atas_nama ? with ('<a href="'.route('adminqurban.show', $dataQurban->id).'>'.$dataQurban->atas_nama.'</a>'): '';
+            })
+            ->editColumn(('created_at'), function ($dataQurban){
+                return $dataQurban->created_at ? with (new carbon($dataQurban->created_at))->format('d/m/Y') : '';
+             })
+            ->editColumn(('permintaan'), function ($dataQurban){
+                return $dataQurban->permintaan ? with (nl2br(e($dataQurban->permintaan))): '';
+             })
+             ->editColumn(('hijri'), function ($dataQurban){
+                return $dataQurban->hijri ? with (new carbon($dataQurban->hijri))->format('Y') : '';
+             })
+            ->addIndexColumn()
+            ->removeColumn('updated_at','deleted_at', 'amil')
+            ->rawColumns(['id','permintaan', 'atas_nama'])
             ->make();
     }
     //Print

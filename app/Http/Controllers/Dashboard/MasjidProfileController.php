@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MasjidProfile;
 
+use DB;
+
 class MasjidProfileController extends Controller
 {
     public function editProfile(){
@@ -31,7 +33,7 @@ class MasjidProfileController extends Controller
         $zis->save();
     }
     public function tesFunction(){
-        $getFirstUserId = \App\Models\User::pluck('id')->first();
-        return $getFirstUserId;
+        $year = \App\Models\Qurban::select(DB::raw('jenis_hewan as jenis_hewan'))->distinct()->get()->pluck('jenis_hewan');
+        return $year;
     }
 }
