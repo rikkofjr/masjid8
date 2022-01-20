@@ -93,7 +93,7 @@ Route::group(['prefix' => 'api'],function(){
     //Qurban
     Route::get('/qurban-kambing-tahun-ini', [QurbanController::class, 'getQurbanKambing'])->name('ApiQurbanKambingByThisYear');
     Route::get('/qurban-sapi-tahun-ini', [QurbanController::class, 'getQurbanSapi'])->name('ApiQurbanSapiByThisYear');
-    Route::get('/qurban-semua-data', [QurbanController::class, 'getAllQurbanData'])->name('ApiAllQurbanData')->middleware('can:dkm-create');
+    Route::get('/qurban-semua-data', [QurbanController::class, 'getAllQurbanData'])->name('ApiAllQurbanData');
 
     Route::get('/tes-function', [MasjidProfileController::class, 'tesFunction']);
 
