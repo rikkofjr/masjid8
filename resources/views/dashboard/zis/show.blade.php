@@ -37,12 +37,12 @@
                 <h4>Zakat Atas Nama : {{$zis->atas_nama}}</h4>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-bordered table-stripped">
                     <tr>
                         <td colspan="3">Atas Nama : {{$zis->atas_nama}}</td>
                     </tr>
                     <tr>
-                        <td>Jenis Zakat : {{$zis->jenis_zakat->zis_type}}</td>
+                        <td colspan="3">Jenis Zakat : {{$zis->jenis_zakat->zis_type}}</td>
                     </tr>
                     <tr>
                         <td><b>Uang</b></td>

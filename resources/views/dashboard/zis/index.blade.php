@@ -27,6 +27,47 @@
 
 
 @section('mainContent')
+             
+<div class="row">
+@foreach($zisHariIni as $zisHariIni)
+    <div class="col-md-6">
+        <div class="card card-statistic-2">
+            <div class="card-stats">
+                <div class="card-stats-title">{{$zisHariIni->jenis_zakat->zis_type}}</div>
+                <div class="card-stats-items">
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">{{number_format($zisHariIni->uang_harian)}}</div>
+                        <div class="card-stats-item-label">Uang</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">{{number_format($zisHariIni->uang_infaq_harian)}}</div>
+                        <div class="card-stats-item-label">Uang Infaq</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">{{$zisHariIni->beras_harian}}</div>
+                        <div class="card-stats-item-label">Beras - kg</div>
+                    </div>
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">{{$zisHariIni->beras_infaq_harian}}</div>
+                        <div class="card-stats-item-label">Beras Infaq - kg</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-archive"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Jumlah Data Harian</h4>
+                </div>
+                <div class="card-body">
+                    {{$zisHariIni->jumlah_data}}
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+</div>
 <div class="row">
 	<div class="col-md-9">
 		<div class="card shadow mb-4">
@@ -77,20 +118,6 @@
                         <span class="badge badge-transparent">{{$ztp->zis_by_year_count}}</span> 
                     </a>
                 @endforeach
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <h6 class="m-0 font-weight-bold text-primary">Pemasukan ZIS hari ini</h6>
-            </div>
-            <div class="card-body">
-                <strong>Uang</strong><br>
-                Uang : {{number_format($zisHariIni->sum('uang'))}} <br>
-                Uang Infaq : {{number_format($zisHariIni->sum('uang_infaq'))}}
-                <br>
-                <hr><strong>Beras</strong><br>
-                Beras : {{$zisHariIni->sum('beras')}} <br>
-                Beras Infaq : {{$zisHariIni->sum('beras_infaq')}}
             </div>
         </div>
     </div>

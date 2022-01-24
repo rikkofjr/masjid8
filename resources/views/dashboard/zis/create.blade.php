@@ -83,7 +83,7 @@ Tambah Data ZIS
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <h4>Beras</h4>
+                        <h4>Beras - Kg</h4>
                         <hr>
                         <div class="form-group">
                             {{ Form::label('beras', 'Beras Zakat - gunakan titik untuk angka desimal')}}

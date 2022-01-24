@@ -52,7 +52,7 @@ class ZisController extends Controller
         $nowHijri = \GeniusTS\HijriDate\Date::today()->format('Y');
         $nowMasehi = Carbon::today()->format('Y');
         $zisType = ZisType::where('id', $zis_type)->get();
-        $zisHarian = $zisHarian = Zis::select(
+        $zisHarian = Zis::select(
             DB::raw('DATE(hijri) as date'), 
             DB::raw('sum(uang) as uang_harian'), 
             DB::raw('sum(uang_infaq) as uang_infaq_harian'),
@@ -107,12 +107,24 @@ class ZisController extends Controller
             }])
         ->get();
         $namaAmilPenginput = Zis::whereYear('hijri', $nowHijriYear)->select('amil')->distinct()->get();
-        //dd($nowHijriYear);
 
-        $zisHariIni = zis::select('uang', 'uang_infaq', 'beras', 'beras_infaq')->whereDate('created_at', Carbon::today())->get();
+        //$zisHariIni = zis::select('uang', 'uang_infaq', 'beras', 'beras_infaq')->whereDate('created_at', Carbon::today())->get();
         
-        
+        $zisHariIni = Zis::select(
+            DB::raw('DATE(created_at) as today'), 
+            DB::raw('id_zis_type'), 
+            DB::raw('sum(uang) as uang_harian'), 
+            DB::raw('sum(uang_infaq) as uang_infaq_harian'),
+            DB::raw('sum(beras) as beras_harian'),
+            DB::raw('sum(beras_infaq) as beras_infaq_harian'),
+            DB::raw('sum(jumlah_jiwa) as jiwa_harian'),
+            DB::raw('count(id_zis_type) as jumlah_data')
+            )
+        ->groupBy('today', 'id_zis_type')
+        ->whereDate('created_at', Carbon::today())//getting daily data from hijriah year
+        ->get();
         //dd($zisHariIni);
+        
         return view('dashboard.zis.index', compact('nowHijri', 'nowMasehi','zisType','namaAmilPenginput', 'zisHariIni'));        
     }
 
