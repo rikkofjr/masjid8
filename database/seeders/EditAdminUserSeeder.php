@@ -22,7 +22,30 @@ class EditAdminUserSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin')
         ]);
-     
         $user->assignRole('Admin');
+    
+        $user1 = User::create([
+            'username' => 'amilhead', 
+            'name' => 'Amil Head', 
+            'email' => 'amil@amil.com',
+            'password' => bcrypt('123456')
+        ]);
+        $user1->assignRole('Outsource Head');
+    
+        $user2 = User::create([
+            'username' => 'amilstaf', 
+            'name' => 'Amil Staf', 
+            'email' => 'amil@amil1.com',
+            'password' => bcrypt('123456')
+        ]);
+        $user2->assignRole('Outsource Staf');
+        
+        $user3 = User::create([
+            'username' => 'Bendahara', 
+            'name' => 'Bendahara Masjid', 
+            'email' => 'behndara@masjid.com',
+            'password' => bcrypt('123456')
+        ]);
+        $user2->assignRole('Outsource Staf');
     }
 }
