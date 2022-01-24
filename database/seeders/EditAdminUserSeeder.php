@@ -46,6 +46,6 @@ class EditAdminUserSeeder extends Seeder
             'email' => 'behndara@masjid.com',
             'password' => bcrypt('123456')
         ]);
-        $user2->assignRole('Outsource Staf');
+        $user2->assignRole('DKM-Bendahara');
     }
 }
