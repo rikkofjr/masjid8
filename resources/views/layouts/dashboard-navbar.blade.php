@@ -18,6 +18,8 @@
                     <li><a class="nav-link" href="{{route('admindata-jamaah.index')}}">Detail Jamaah</a></li>
                 </ul>
             </li>
+            @endcan
+            @can('bendahara-create')
             <!--Bendahara-->
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-wallet"></i> <span>Bendhara</span></a>
