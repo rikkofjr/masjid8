@@ -97,17 +97,16 @@ class ZisController extends Controller
     }
     public function index(){
         
-        $nowHijri = \GeniusTS\HijriDate\Date::today()->format('j F, Y');
-        $nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
+        $nowHijri = \GeniusTS\HijriDate\Date::today();
         $nowMasehi = Carbon::today()->format('Y');
         $zisType = ZisType::orderBy('zis_type', 'DESC')
         ->withCount(['zis', 'zis as zis_by_year_count' =>
             function ($query){
-                $query->whereYear('hijri', \GeniusTS\HijriDate\Date::today()->format('Y'));
+                $nowHijriYear = \GeniusTS\HijriDate\Date::today()->format('Y');
+                $query->whereYear('hijri', $nowHijriYear);
             }])
         ->get();
-        $namaAmilPenginput = Zis::whereYear('hijri', $nowHijriYear)->select('amil')->distinct()->get();
-
+        $namaAmilPenginput = Zis::whereYear('hijri', $nowHijri->format('Y'))->select('amil')->distinct()->get();
         //$zisHariIni = zis::select('uang', 'uang_infaq', 'beras', 'beras_infaq')->whereDate('created_at', Carbon::today())->get();
         
         $zisHariIni = Zis::select(

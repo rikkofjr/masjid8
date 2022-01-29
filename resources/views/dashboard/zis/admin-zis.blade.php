@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('pageTitle')
-    ZIS Dashboard
+    Management ZIS
 @endsection
 @section('DynamicCss')
    <!-- <link rel="stylesheet" href="{{asset('dashboard/vendor/datatables/buttons.dataTables.min.css')}}">-->
@@ -8,7 +8,7 @@
 @endsection
 @section('titleBar')
 <div class="section-header">
-    <h1>ZIS Dashboard</h1>
+    <h1>Management ZIS</h1>
 	
 </div>
 @endsection

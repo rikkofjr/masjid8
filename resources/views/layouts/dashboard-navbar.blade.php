@@ -38,7 +38,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('adminzis.create')}}">Tambah Penerimaan ZIS</a></li>
                     <li><a class="nav-link" href="{{route('adminzis.index')}}">Penerimaan Tahun Ini</a></li>
-                    <li><a class="nav-link" href="{{route('adminZisDashboard')}}">Dashboard Zis</a></li>
+                    <li><a class="nav-link" href="{{route('adminZisDashboard')}}">Management ZIS</a></li>
                 </ul>
             </li>
             <!--Qurban-->

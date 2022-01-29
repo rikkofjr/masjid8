@@ -2,7 +2,7 @@
 
 
 @section('pageTitle')
-    Laporan ZIS Tahun {{$nowHijri}}H / {{$nowMasehi}}M
+    Laporan ZIS Tahun {{date('Y', strtotime($nowHijri))}} -|| {{$nowHijri->format('Y')}}H / {{$nowMasehi}}M
 @endsection
 
 @section('DynamicCss')
@@ -17,7 +17,7 @@
 
 @section('titleBar')
 <div class="section-header">
-    <h1>Laporan ZIS Tahun {{$nowHijri}}H / {{$nowMasehi}}M</h1>
+    <h1>Laporan ZIS Tahun {{$nowHijri->format('Y')}}H / {{$nowMasehi}}M</h1>
     <div class="section-header-breadcrumb">
 		<a class="btn btn-icon icon-left btn-primary" href="{{ route('adminzis.create') }}"> <i class="fas fa-pencil-alt"></i> Tambah Data</a>
 	</div>
@@ -41,15 +41,15 @@
                     </div>
                     <div class="card-stats-item">
                         <div class="card-stats-item-count">{{number_format($zisHariIni->uang_infaq_harian)}}</div>
-                        <div class="card-stats-item-label">Uang Infaq</div>
+                        <div class="card-stats-item-label">Uang <br> Infaq</div>
                     </div>
                     <div class="card-stats-item">
                         <div class="card-stats-item-count">{{$zisHariIni->beras_harian}}</div>
-                        <div class="card-stats-item-label">Beras - kg</div>
+                        <div class="card-stats-item-label">Beras <br><small>kg</small></div>
                     </div>
                     <div class="card-stats-item">
                         <div class="card-stats-item-count">{{$zisHariIni->beras_infaq_harian}}</div>
-                        <div class="card-stats-item-label">Beras Infaq - kg</div>
+                        <div class="card-stats-item-label">Beras Infaq <br> <small>kg</small></div>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
 	<div class="col-md-9">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Laporan ZIS Tahun {{$nowHijri}}H / {{$nowMasehi}}M</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Laporan ZIS Tahun Ini</h6>
             </div>
 			<div class="card-body">
                 <select data-column="8" class="form-control filter-select" name="" id="">
