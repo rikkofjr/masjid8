@@ -137,11 +137,13 @@ input[type="radio"]:focus + span {
                             <td>{{$dj->nama}}</td>
                             <td>{{date("Y") - date("Y" ,strtotime($dj->tanggal_lahir))}}</td>
                             <td>
+                            @can('outsource-delete')
                             <form method="POST" action="{{route('adminSoftDeleteJamaah', $dj->id)}}">
                                 @csrf
                                 <input name="_method" type="hidden" value="DELETE">
                                 <button type="submit" class="m-1 btn btn-xs btn-danger btn-flat jamaah_delete_confirm" data-toggle="tooltip" >Hapus</button>
                             </form>
+                            @endcan
                             </td>
                         </tr>
                         @endforeach

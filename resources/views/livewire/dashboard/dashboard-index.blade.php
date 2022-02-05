@@ -5,7 +5,9 @@
                 <button class="close" data-dismiss="alert">
                     <span>×</span>
                 </button>
-                Haloo {{Auth::user()->name}}
+            
+                Haloo {{Auth::user()->name}} d tanggal {{$nowMasehi}}
+                
             </div>
         </div>
     </div>

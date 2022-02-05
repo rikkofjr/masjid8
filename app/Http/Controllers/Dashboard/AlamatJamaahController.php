@@ -56,7 +56,7 @@ class AlamatJamaahController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'nama_pemilik.required' => 'Formulir Atas Nama Wajid Diisi',
+            'nama_pemilik.required' => 'Formulir Nama Pemilik Wajid Diisi',
             'kategori_alamat.required' => 'Formulir Kategori Alamat Jamaah Wajid Diisi',
             'alamat.required' => 'Alamat harap diisi',
             'rt.required' => 'RT harap diisi',
@@ -66,7 +66,9 @@ class AlamatJamaahController extends Controller
             //'amil'=>'required', 
             'nama_pemilik'=>'required', 
             'kategori_alamat'=>'required', 
-            'alamat','rw','rw'=>'required', 
+            'alamat'=>'required', 
+            'rt'=>'required', 
+            'rw'=>'required', 
         ],$messages);
 
         $aj = new AlamatJamaah;
@@ -104,7 +106,13 @@ class AlamatJamaahController extends Controller
     public function edit($id)
     {
         $aj = AlamatJamaah::findOrFail($id);
-        return view('dashboard.jamaah.alamat.edit', compact('aj'));
+        if(Auth::user()->hasPermissionTo('outsource-delete') || ($aj->penginput == Auth::user()->id)){
+            return view('dashboard.jamaah.alamat.edit', compact('aj'));
+        }else{
+            abort(404);
+        }
+
+        
 
     }
 

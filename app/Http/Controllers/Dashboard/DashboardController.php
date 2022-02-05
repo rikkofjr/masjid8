@@ -8,18 +8,41 @@ use Illuminate\Http\Request;
 use App\Models\MasjidProfile;
 use App\Models\DataJamaah;
 use App\Models\AlamatJamaah;
+use App\Models\User;
+use App\Models\KasPenerimaan;
+use App\Models\KasPengeluaran;
 
+use DB;
 
 class DashboardController extends Controller
 {
     public function home(){
-        $dataJamaah = DataJamaah::all();
-        $alamatJamaah = AlamatJamaah::all();
+        $jumlahDataJamaah = DataJamaah::count();
+        $jumlahAlamatJamaah = AlamatJamaah::count();
+        $jumlahJamaahDonatur = AlamatJamaah::where('kategori_jamaah', 'Donatur')->count();
+        $jumlahJamaahMustahiq = AlamatJamaah::where('kategori_jamaah', 'Mustahiq')->count();
+        $jumlahOutsourceHead = User::role('Outsource Head')->select('id','name')->get(); 
+        $jumlahOutsourceStaf = User::role('Outsource Staf')->select('id','name')->count(); 
         $masjidProfile = MasjidProfile::first();
+        $kasPenerimaan = KasPenerimaan::select(
+            DB::raw('year(created_at) as tahun'), 
+            DB::raw('sum(penerimaan) as penerimaan'), 
+        )->groupBy('tahun')->orderBy('tahun', 'DESC')->limit(5)->get();
+        $kasPengeluaran = KasPengeluaran::select(
+            DB::raw('year(created_at) as tahun'), 
+            DB::raw('sum(pengeluaran) as pengeluaran'), 
+        )->groupBy('tahun')->orderBy('tahun', 'DESC')->limit(5)->get();
         return view('dashboard.index', compact(
             'masjidProfile',
-            'dataJamaah',
-            'alamatJamaah' 
+            'jumlahDataJamaah',
+            'jumlahJamaahDonatur',
+            'jumlahJamaahMustahiq',
+            'jumlahOutsourceHead',
+            'jumlahOutsourceStaf',
+            'kasPenerimaan',
+            'kasPengeluaran',
+            'jumlahAlamatJamaah' 
+
         ));
     }
     public function coba(){

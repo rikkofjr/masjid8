@@ -33,7 +33,7 @@ class KasPenerimaanController extends Controller
     ////Api Data
     public function getAllDataPenerimaan(){
             $nowMasehi = Carbon::today()->format('Y');
-            $data = KasPenerimaan::whereYear('created_at', $nowMasehi)->orderBy('created_at', 'ASC')->get();
+            $data = KasPenerimaan::orderBy('created_at', 'DESC')->get();
             return Datatables::of($data)
             ->editColumn('created_at', function ($datanya){
                 return $datanya->created_at ? with (new carbon($datanya->created_at))->format('j F, Y') : '';
@@ -54,15 +54,17 @@ class KasPenerimaanController extends Controller
 
     public function index(Request $request)
     {
-        $nowMasehi = Carbon::today()->format('Y');
+        $nowMasehi = Carbon::today()->format('j F , Y');
         //$kasPenerimaan = KasPenerimaan::orderBy('created_at', 'DESC')->get();
         $totalKasPenerimaan = KasPenerimaan::sum('penerimaan');
         $totalKasPengeluaran = KasPengeluaran::sum('pengeluaran');
+        $tahunPenerimaan = KasPenerimaan::select(DB::raw('YEAR(created_at) as year'))->distinct()->get()->pluck('year');
+        
         if($request->ajax()){
-            $data = KasPenerimaan::whereYear('created_at', $nowMasehi)->orderBy('created_at', 'DESC')->get();
+            $data = KasPenerimaan::orderBy('created_at', 'DESC')->get();
             return Datatables::of($data)
             ->editColumn('created_at', function ($datanya){
-                return $datanya->created_at ? with (new carbon($datanya->created_at))->format('j F, Y') : '';
+                return $datanya->created_at ? with (new carbon($datanya->created_at))->format('Y, j F') : '';
             })
             ->editColumn('penerimaan', function ($datanya){
                 return $datanya->penerimaan ? with (number_format($datanya->penerimaan)): '';
@@ -76,9 +78,8 @@ class KasPenerimaanController extends Controller
             ->removeColumn('catatan','penginput','deleted_at')
             ->rawColumns(['action'])->make(true);
         }
-        //dd($request);
         
-        return view('dashboard.kas.penerimaan.index', compact('nowMasehi', 'totalKasPenerimaan', 'totalKasPengeluaran'));
+        return view('dashboard.kas.penerimaan.index', compact('nowMasehi', 'totalKasPenerimaan', 'totalKasPengeluaran', 'tahunPenerimaan'));
     }
 
     /**

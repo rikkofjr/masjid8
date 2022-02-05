@@ -11,13 +11,7 @@
             @can('dkm-create')    
             <li class="menu-header">DKM</li>
             <!--Jamaah-->
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user"></i> <span>Jamaah Manajemen</span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{route('adminalamat-jamaah.index')}}">Alamat Jamaah</a></li>
-                    <li><a class="nav-link" href="{{route('admindata-jamaah.index')}}">Detail Jamaah</a></li>
-                </ul>
-            </li>
+            
             @endcan
             @can('bendahara-create')
             <!--Bendahara-->
@@ -31,7 +25,7 @@
             </li>
             @endcan
             @can('outsource-create')
-            <li class="menu-header">Hari Besar</li>
+            <li class="menu-header">Outsource Input</li>
             <!--Zis-->
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-wallet"></i> <span>ZIS</span></a>
@@ -48,6 +42,14 @@
                     <li><a class="nav-link" href="{{route('adminqurban.create')}}">Tambah Penerimaan</a></li>
                     <li><a class="nav-link" href="{{route('adminqurban.index')}}">Penerimaan Tahun Ini</a></li>
                     <li><a class="nav-link" href="{{route('adminqurbanDashboard')}}">Dashboard Qurban</a></li>
+                </ul>
+            </li>
+            <!--Database Jamaah-->
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user"></i> <span>Jamaah Manajemen</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route('adminalamat-jamaah.index')}}">Alamat Jamaah</a></li>
+                    <li><a class="nav-link" href="{{route('admindata-jamaah.index')}}">Detail Jamaah</a></li>
                 </ul>
             </li>
             @endcan

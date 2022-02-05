@@ -32,11 +32,13 @@ class KasPengeluaranController extends Controller
         //$kasPenerimaan = KasPenerimaan::orderBy('created_at', 'DESC')->get();
         $totalKasPenerimaan = KasPenerimaan::sum('penerimaan');
         $totalKasPengeluaran = KasPengeluaran::sum('pengeluaran');
+        $tahunPenerimaan = KasPengeluaran::select(DB::raw('YEAR(created_at) as year'))->distinct()->get()->pluck('year');
+
         if($request->ajax()){
-            $data = KasPengeluaran::whereYear('created_at', $nowMasehi)->orderBy('created_at', 'DESC')->get();
+            $data = KasPengeluaran::orderBy('created_at', 'DESC')->get();
             return Datatables::of($data)
             ->editColumn('created_at', function ($datanya){
-                return $datanya->created_at ? with (new carbon($datanya->created_at))->format('j F, Y') : '';
+                return $datanya->created_at ? with (new carbon($datanya->created_at))->format('Y, j F') : '';
             })
             ->editColumn('pengeluaran', function ($datanya){
                 return $datanya->pengeluaran ? with (number_format($datanya->pengeluaran)): '';
@@ -51,7 +53,7 @@ class KasPengeluaranController extends Controller
             ->rawColumns(['action'])->make(true);
         
         }
-        return view('dashboard.kas.pengeluaran.index', compact('nowMasehi', 'totalKasPenerimaan', 'totalKasPengeluaran'));
+        return view('dashboard.kas.pengeluaran.index', compact('nowMasehi', 'tahunPenerimaan', 'totalKasPenerimaan', 'totalKasPengeluaran'));
     }
     /**
      * Show the form for creating a new resource.

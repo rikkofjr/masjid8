@@ -18,27 +18,13 @@
 
 @section('mainContent')
 
-<style type="text/css">
-    .outerDivFull { margin:0px; } 
-
-.switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
-.switchToggle label {cursor: pointer; text-indent: -9999px; width: 300px; max-width: 300px; height: 30px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
-.switchToggle label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 30px; height: 26px; background: #fff; border-radius: 90px; transition: 0.3s; }
-.switchToggle input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
-.switchToggle input + label:before, .switchToggle input + input + label:before {content: 'Tidak Disaksikan'; position: absolute; top: 5px; left: 35px; width: 1220px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {content: 'Disaksikan'; position: absolute; top: 5px; left: 10px; width: 130px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
-.switchToggle label:active:after {width: 160px; } 
-.toggle-switchArea { margin: 10px 0 10px 0; }
-
-
-
-</style>
-@if ($errors->any())
-    <div class="container">      
-        <div class="alert alert-danger">
-            <em> {{ implode('', $errors->all(':message')) }}</em>
-         </div>
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif
 <div class="row">

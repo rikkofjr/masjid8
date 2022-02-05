@@ -2,7 +2,7 @@
 
 
 @section('pageTitle')
-    Laporan Pengeluaran Tahun {{$nowMasehi}}
+    Laporan Pengeluaran
 @endsection
 
 @section('DynamicCss')
@@ -13,7 +13,7 @@
 
 @section('titleBar')
 <div class="section-header">
-    <h1>Laporan Pengeluaran Tahun {{$nowMasehi}}</h1>
+    <h1>Laporan Pengeluaran</h1>
     <div class="section-header-breadcrumb">
 		<a class="btn btn-icon icon-left btn-primary" href="{{ route('adminkas-pengeluaran.create') }}"> <i class="fas fa-pencil"></i> Tambah Data</a>
 	</div>
@@ -27,9 +27,16 @@
 	<div class="col-md-8">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Laporan Pengeluaran Tahun - {{$nowMasehi}}H</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Laporan Pengeluaran </h6>
             </div>
 			<div class="card-body">
+                <select data-column="1" class="form-control filter-select" name="" id="">
+                    <option value="" hidden>Pilih Tahun</option>
+                    @foreach($tahunPenerimaan as $tahun)
+                        <option value="{{$tahun}}">{{$tahun}}</option>
+                    @endforeach
+                </select>  
+                <br/> 
 				<div class="table-responsive">
                     <table class="table table-striped" id="data-table">
                         <thead>
@@ -77,12 +84,17 @@
                     serverSide: true,
                     ajax: "{{ route('adminkas-pengeluaran.index') }}",
                     columns : [
-                        {data:'DT_RowIndex',name:'DT_RowIndex'},
-                        {data: 'created_at', name: 'created_at'},
-                        {data: 'keterangan', name: 'keterangan'},
-                        {data: 'pengeluaran', name: 'pengeluaran'},
+                        {data:'DT_RowIndex',name:'DT_RowIndex', orderable:'false'},
+                        {data: 'created_at', name: 'created_at', orderable:'false'},
+                        {data: 'keterangan', name: 'keterangan', orderable:'false'},
+                        {data: 'pengeluaran', name: 'pengeluaran', orderable:'false'},
                         {data: 'action', name: 'action'},
                     ]
+                });
+                $('.filter-select').change(function(){
+                    table.column($(this).data('column'))
+                    .search($(this).val())
+                    .draw();
                 });
             });
         </script>
