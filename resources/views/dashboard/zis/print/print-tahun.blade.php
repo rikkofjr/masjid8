@@ -59,7 +59,7 @@
                         </table>
 
                         <hr/>
-                        <div class="section-title">Rincian Total {{$year}}H</div>
+                        <div class="section-title">Rincian Total Zakat{{$year}}H</div>
                         <div class="row">
                             @foreach($zisYear as $zisYear)
                             <div class="col">
