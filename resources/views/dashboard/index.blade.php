@@ -194,7 +194,7 @@ Selamat Datang pada sistem informasi Masjid {{env('APP_NAME')}}
                         <table class="table table-bordered table-md">
                             <tr>
                                <td width="20%">Tahun</td>
-                               <td width="80%">Diterima</td>
+                               <td width="80%">Dikeluarkan</td>
                             </tr>
                             @foreach($kasPengeluaran as $rekapan)
                                 <tr>
