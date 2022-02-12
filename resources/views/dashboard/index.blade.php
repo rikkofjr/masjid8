@@ -166,7 +166,7 @@ Selamat Datang pada sistem informasi Masjid {{env('APP_NAME')}}
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header"> <h4>Penerimaan</h4> </div>
+                    <div class="card-header"> <h4>Penerimaan Masjid {{$masjidProfile->nama_masjid}}</h4> </div>
                     <div class="card-body">
                        <canvas id="myChart" height="182"></canvas>
                        <small>Rekapan</small>
@@ -187,7 +187,7 @@ Selamat Datang pada sistem informasi Masjid {{env('APP_NAME')}}
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header"> <h4>Pengeluaran</h4> </div>
+                    <div class="card-header"> <h4>Pengeluaran Masjid {{$masjidProfile->nama_masjid}}</h4> </div>
                     <div class="card-body">
                         <canvas id="chartPengeluaran" height="182"></canvas>
                         <small>Rekapan</small>
@@ -247,7 +247,14 @@ var myChart = new Chart(statistics_chart, {
           drawBorder: false,
         },
         ticks: {
-          stepSize: 2000000000
+          stepSize: 2000000000,
+          callback: function(value, index, values) {
+              if(parseInt(value) >= 1000){
+                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              } else {
+                return value;
+              }
+            }
         }
       }],
       xAxes: [{
@@ -284,8 +291,9 @@ var myChart = new Chart(statistics_chart, {
     }]
   },
   options: {
+    locale:'en-ID',
     legend: {
-      display: false
+      display: false,
     },
     scales: {
       yAxes: [{
@@ -294,7 +302,14 @@ var myChart = new Chart(statistics_chart, {
           drawBorder: false,
         },
         ticks: {
-          stepSize: 2000000000
+            stepSize: 1000000000,
+            callback: function(value, index, values) {
+              if(parseInt(value) >= 1000){
+                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              } else {
+                return value;
+              }
+            }
         }
       }],
       xAxes: [{

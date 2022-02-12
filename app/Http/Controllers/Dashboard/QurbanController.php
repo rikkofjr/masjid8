@@ -247,7 +247,8 @@ class QurbanController extends Controller
                 return $dataQurban->nomor_hewan ? with ((int)filter_var($dataQurban->nomor_hewan, FILTER_SANITIZE_NUMBER_INT)): '';
             })
             ->editColumn(('atas_nama'), function($dataQurban){
-                return $dataQurban->atas_nama ? with ('<a href="'.route('adminqurban.show', $dataQurban->id).'>'.$dataQurban->atas_nama.'</a>'): '';
+                $btn = '<a href="'.route('adminqurban.show', $dataQurban->id).'">'.$dataQurban->atas_nama.'</a>';
+                return $btn;
             })
             ->editColumn(('created_at'), function ($dataQurban){
                 return $dataQurban->created_at ? with (new carbon($dataQurban->created_at))->format('d/m/Y') : '';
@@ -255,12 +256,15 @@ class QurbanController extends Controller
             ->editColumn(('permintaan'), function ($dataQurban){
                 return $dataQurban->permintaan ? with (nl2br(e($dataQurban->permintaan))): '';
              })
+            ->editColumn(('nama_lain'), function ($dataQurban){
+                return $dataQurban->nama_lain ? with (nl2br(e($dataQurban->nama_lain))): '';
+             })
              ->editColumn(('hijri'), function ($dataQurban){
                 return $dataQurban->hijri ? with (new carbon($dataQurban->hijri))->format('Y') : '';
              })
             ->addIndexColumn()
             ->removeColumn('updated_at','deleted_at', 'amil')
-            ->rawColumns(['id','permintaan', 'atas_nama'])
+            ->rawColumns(['id','permintaan', 'atas_nama', 'nama_lain'])
             ->make();
     }
     //Print

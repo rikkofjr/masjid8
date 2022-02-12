@@ -71,12 +71,6 @@ Route::group(['middleware' => ['permission:outsource-delete|dkm-delete']], funct
 //Jamaah
 
 
-
-Route::group(['prefix' => 'print'],function(){
-    //Print Keluarga atau jamaah
-    Route::get('/keluarga/{id}', [AlamatJamaahController::class, 'PrintKeluarga'])->name('PrintKeluarga');
-});
-
 Route::group(['prefix' => 'api'],function(){
     //Kas
     Route::get('/kas-penerimaan', [KasPenerimaanController::class, 'getAllDataPenerimaan'])->name('ApiAllKasPenerimaan');
@@ -102,9 +96,12 @@ Route::group(['prefix' => 'api'],function(){
 
 Route::group(['prefix' => 'print'],function(){
     //Print Zakat {Fitrah, Mall, Fidyah}
-    Route::get('/zakat-jamaah/{id}', [ZisController::class, 'PrintZakatJamaah'])->name('PrintZakatJamaah');
-    
+    Route::get('/zakat-jamaah/{id}', [ZisController::class, 'printZakatJamaah'])->name('PrintZakatJamaah');
+    Route::get('/zakat-tahun/{year}', [ZisController::class,'printZakatTahun'])->name('PrintZakatTahun');
     //print qurban
     Route::get('/qurban/{jenis_hewan}', [QurbanController::class, 'printQurbanByThisYear'])->name('PrintQurbanRekapJamaah');
     Route::get('/qurban/jamaah/{id}', [QurbanController::class, 'printQurbanJamaah'])->name('PrintQurbanJamaah');
+
+    //Print Keluarga atau jamaah
+    Route::get('/keluarga/{id}', [AlamatJamaahController::class, 'PrintKeluarga'])->name('PrintKeluarga');
 });

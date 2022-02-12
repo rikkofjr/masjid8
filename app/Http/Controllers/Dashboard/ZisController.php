@@ -360,11 +360,40 @@ class ZisController extends Controller
         return response()->json($zis);
     }
     //
-    public function PrintZakatJamaah($id){
+    public function printZakatJamaah($id){
         $todayHijri =\GeniusTS\HijriDate\Date::today()->format('Y');
         $dataMasjid = MasjidProfile::first();
         $zis = Zis::findOrFail($id);
 
         return view('dashboard.zis.print.print', compact('zis', 'dataMasjid'));        
+    }
+    public function printZakatTahun($year){
+        $zis = Zis::orderBy('created_at','ASC')
+        ->whereYear('hijri',$year)->get(); 
+
+        $zisYear = Zis::select(
+            DB::raw('YEAR(hijri) as thisYear'), 
+            DB::raw('id_zis_type'), 
+            DB::raw('sum(uang) as uang_harian'), 
+            DB::raw('sum(uang_infaq) as uang_infaq_harian'),
+            DB::raw('sum(beras) as beras_harian'),
+            DB::raw('sum(beras_infaq) as beras_infaq_harian'),
+            DB::raw('sum(jumlah_jiwa) as jiwa_harian'),
+            DB::raw('count(id_zis_type) as jumlah_data')
+            )
+        ->groupBy('thisYear', 'id_zis_type')
+        ->whereYear('hijri', $year)//getting daily data from hijriah year
+        ->get();
+
+        // if($zis->count() > 0){
+        //     return view('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
+        // }else{
+        //     abort('404');
+        // }
+
+        $pdf = PDF::loadView('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
+        $namaFile = 'Zakat Tahun' . $year;
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream(''.$namaFile.'.pdf');
     }
 }

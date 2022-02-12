@@ -122,6 +122,16 @@
             </div>
         </div>
         <!--End Of Card 1--->
+        <!--start card 2-->
+        <div class="card">
+            <div class="card-header"><h4>Arsip Zakat Tahunan</h4></div>
+            <div class="card-body">
+                @foreach($year as $yearDate)
+                    <a href="{{route('adminPrintZakatTahun', $yearDate)}}" class="btn btn-primary">{{$yearDate}}</a>
+                @endforeach
+            </div>
+        </div>
+        <!--end of card 2-->
     </div>
 </div>
 @endsection

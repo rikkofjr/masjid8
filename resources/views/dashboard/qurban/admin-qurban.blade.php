@@ -62,7 +62,7 @@
                                     @endforeach
                                 </select>
                             </td>
-                            <td colspan="4"></td>
+                            <td colspan="5"></td>
                         </tr>
                         <tr>
                             <td>Hijri</td>
@@ -70,6 +70,7 @@
                             <td>Jenis Hewan</td>
                             <td>Nomor Hewan</td>
                             <td>Atas Nama</td>
+                            <td>Nama Lain</td>
                             <td>Permintaan</td>
                             <td>Keterangan</td>
                         </tr>
@@ -118,6 +119,7 @@
                         {data:'jenis_hewan',name:'jenis_hewan', orderable : false},
                         {data:'nomor_hewan',name:'nomor_hewan', orderable : false},
                         {data: 'atas_nama', name: 'atas_nama', orderable: false},
+                        {data: 'nama_lain', name: 'nama_lain', orderable: false},
                         {data: 'permintaan', name: 'permintaan', orderable: false},
                         {data: 'keterangan', name: 'keterangan', orderable: false},
                     ]
