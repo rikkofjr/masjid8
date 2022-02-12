@@ -6,6 +6,11 @@
             body{
                 font-family:sans-serif;
             }
+            .row:after{
+                content: "";
+                display: table;
+                clear: both;
+            }
             .col{
                 width : 33.3%;
                 float:left;
