@@ -25,6 +25,7 @@
                 border-bottom: 1px solid #000;
             }
             .table tr:nth-child(even){background-color: #f2f2f2;}
+            .page_break { page-break-before: always; }
         </style>
     </head>
     <body>
@@ -66,46 +67,48 @@
                         </table>
 
                         <hr/>
-                        <div class="section-title">Rincian Total Zakat {{$year}}H</div>
-                        <div class="row">
-                            @foreach($zisYear as $zisYear)
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>{{$zisYear->jenis_zakat->zis_type}}</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <table class="table table-bordered" width="100%">
-                                            <tr>
-                                                <td colspan="2"><b>Uang</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Uang Zakat</td>
-                                                <td style="text-align:right">{{number_format($zisYear->uang_tahunan)}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Uang Infaq</td>
-                                                <td style="text-align:right">{{number_format($zisYear->uang_infaq_tahunan)}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2"><b>Beras</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Beras Zakat</td>
-                                                <td style="text-align:right">: {{number_format($zisYear->beras_tahunan)}} kg</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Uang Infaq</td>
-                                                <td style="text-align:right">{{number_format($zisYear->beras_infaq_tahunan)}} kg</td>
-                                            </tr>
-                                            
-                                        </table>
-                                        Jumlah Data Transaksi - {{$zisYear->jumlah_data}} <br/>
-                                        Jumlah Jiwa - {{$zisYear->jiwa_tahunan}}
+                        <div class="page_break">                        
+                            <div class="section-title">Rincian Total Zakat {{$year}}H</div>
+                            <div class="row">
+                                @foreach($zisYear as $zisYear)
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>{{$zisYear->jenis_zakat->zis_type}}</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-bordered" width="100%">
+                                                <tr>
+                                                    <td colspan="2"><b>Uang</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Uang Zakat</td>
+                                                    <td style="text-align:right">{{number_format($zisYear->uang_tahunan)}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Uang Infaq</td>
+                                                    <td style="text-align:right">{{number_format($zisYear->uang_infaq_tahunan)}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>Beras</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Beras Zakat</td>
+                                                    <td style="text-align:right">: {{number_format($zisYear->beras_tahunan)}} kg</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Uang Infaq</td>
+                                                    <td style="text-align:right">{{number_format($zisYear->beras_infaq_tahunan)}} kg</td>
+                                                </tr>
+                                                
+                                            </table>
+                                            Jumlah Data Transaksi - {{$zisYear->jumlah_data}} <br/>
+                                            Jumlah Jiwa - {{$zisYear->jiwa_tahunan}}
+                                        </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -114,5 +117,4 @@
         <small>Sumber : {{route('adminPrintZakatTahun', $year)}} </small>
     </body>
 </html>
-
 

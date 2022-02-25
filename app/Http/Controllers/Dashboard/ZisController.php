@@ -283,7 +283,7 @@ class ZisController extends Controller
     public function getZisDataByThisYear(){
         $nowHijri = \GeniusTS\HijriDate\Date::today()->format('Y');
         $nowMasehi = Carbon::today()->format('Y');
-        $dataFitrah = Zis::orderBy('created_at','desc')
+        $dataFitrah = Zis::with('data_amil', 'jenis_zakat')->orderBy('created_at','desc')
         ->whereYear('hijri',$nowHijri)->get(); 
         return Datatables::of($dataFitrah)
             ->addColumn(('id_zis_typex'), function ($dataFitrah){
@@ -315,7 +315,7 @@ class ZisController extends Controller
     }
 
     public function getAllZisData(){
-        $dataFitrah = Zis::orderBy('created_at','desc')
+        $dataFitrah = Zis::with('data_amil', 'jenis_zakat')->orderBy('created_at','desc')
         ->get(); 
         return Datatables::of($dataFitrah)
             ->addColumn(('id_zis_typex'), function ($dataFitrah){
@@ -368,10 +368,10 @@ class ZisController extends Controller
         return view('dashboard.zis.print.print', compact('zis', 'dataMasjid'));        
     }
     public function printZakatTahun($year){
-        $zis = Zis::orderBy('created_at','ASC')
-        ->whereYear('hijri',$year)->get(); 
+        $zis = Zis::with('jenis_zakat')->whereYear('hijri',$year)->orderBy('created_at','ASC')
+        ->get(); 
 
-        $zisYear = Zis::select(
+        $zisYear = Zis::with('jenis_zakat')->select(
             DB::raw('YEAR(hijri) as thisYear'), 
             DB::raw('id_zis_type'), 
             DB::raw('sum(uang) as uang_tahunan'), 
@@ -390,10 +390,11 @@ class ZisController extends Controller
         // }else{
         //     abort('404');
         // }
+        // return view('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
 
         $pdf = PDF::loadView('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
         $namaFile = 'Zakat Tahun' . $year;
         $pdf->setPaper('A4', 'landscape');
-        return $pdf->stream(''.$namaFile.'.pdf');
+        return $pdf->download(''.$namaFile.'.pdf');
     }
 }
