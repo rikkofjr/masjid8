@@ -72,7 +72,7 @@ class QurbanController extends Controller
             'jenis_hewan.required' => 'Jenis Hewan harap diisi',
             'alamat.required' => 'Alamat pengqurban harap diisi',
             'permintaan.required' => 'Permintaan pengqurban harap  diisi',
-            'nomor_handphone.required' => 'Nomor handphone harap diisi',
+            'nomor_handphone.required' => 'Nomor whatsapp/handphone harap diisi',
         ];
         $this->validate($request, [
             'atas_nama'=>'required', 

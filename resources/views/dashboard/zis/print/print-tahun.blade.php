@@ -12,8 +12,10 @@
                 clear: both;
             }
             .col{
-                width : 33.3%;
+                width : 30%;
                 float:left;
+                padding:10px;
+                box-shadow:1px 1px 1px #ccc;
             }
             .table-header-data{
                 background:#ccaaaa;
@@ -64,37 +66,42 @@
                         </table>
 
                         <hr/>
-                        <div class="section-title">Rincian Total Zakat{{$year}}H</div>
+                        <div class="section-title">Rincian Total Zakat {{$year}}H</div>
                         <div class="row">
                             @foreach($zisYear as $zisYear)
                             <div class="col">
                                 <div class="card">
-                                    <div class="card-header"><h4>{{$zisYear->jenis_zakat->zis_type}}</h4></div>
+                                    <div class="card-header">
+                                        <h4>{{$zisYear->jenis_zakat->zis_type}}</h4>
+                                    </div>
                                     <div class="card-body">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" width="100%">
                                             <tr>
                                                 <td colspan="2"><b>Uang</b></td>
                                             </tr>
                                             <tr>
                                                 <td>Uang Zakat</td>
-                                                <td style="text-align:right">{{number_format($zisYear->uang_harian)}}</td>
+                                                <td style="text-align:right">{{number_format($zisYear->uang_tahunan)}}</td>
                                             </tr>
                                             <tr>
-                                                <td>Uang Infaq :</td>
-                                                <td style="text-align:right">{{number_format($zisYear->uang_infaq_harian)}}</td>
+                                                <td>Uang Infaq</td>
+                                                <td style="text-align:right">{{number_format($zisYear->uang_infaq_tahunan)}}</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2"><b>Beras</b></td>
                                             </tr>
                                             <tr>
-                                                <td>Beras Zakat : </td>
-                                                <td style="text-align:right">: {{number_format($zisYear->beras_harian)}} kg</td>
+                                                <td>Beras Zakat</td>
+                                                <td style="text-align:right">: {{number_format($zisYear->beras_tahunan)}} kg</td>
                                             </tr>
                                             <tr>
-                                                <td>Uang Infaq :</td>
-                                                <td style="text-align:right">{{number_format($zisYear->beras_infaq_harian)}} kg</td>
+                                                <td>Uang Infaq</td>
+                                                <td style="text-align:right">{{number_format($zisYear->beras_infaq_tahunan)}} kg</td>
                                             </tr>
+                                            
                                         </table>
+                                        Jumlah Data Transaksi - {{$zisYear->jumlah_data}} <br/>
+                                        Jumlah Jiwa - {{$zisYear->jiwa_tahunan}}
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +111,7 @@
                 </div>
             </div>
         </section>
-        <small style="margin-top:30px;">Sumber : {{route('adminPrintZakatTahun', $year)}} </small>
+        <small>Sumber : {{route('adminPrintZakatTahun', $year)}} </small>
     </body>
 </html>
 

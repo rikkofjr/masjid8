@@ -77,7 +77,7 @@ Tambah Data Penerimaan Qurban
                                         +62
                                     </div>
                                 </div>
-                                <input type="text" name="nomor_handphone" class="form-control currency">
+                                <input type="text" name="nomor_handphone" placeholder="812xxxx" class="form-control currency">
                             </div>
                         </div>
                         <br />Keterangan Disaksikan

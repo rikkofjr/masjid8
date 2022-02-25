@@ -374,11 +374,11 @@ class ZisController extends Controller
         $zisYear = Zis::select(
             DB::raw('YEAR(hijri) as thisYear'), 
             DB::raw('id_zis_type'), 
-            DB::raw('sum(uang) as uang_harian'), 
-            DB::raw('sum(uang_infaq) as uang_infaq_harian'),
-            DB::raw('sum(beras) as beras_harian'),
-            DB::raw('sum(beras_infaq) as beras_infaq_harian'),
-            DB::raw('sum(jumlah_jiwa) as jiwa_harian'),
+            DB::raw('sum(uang) as uang_tahunan'), 
+            DB::raw('sum(uang_infaq) as uang_infaq_tahunan'),
+            DB::raw('sum(beras) as beras_tahunan'),
+            DB::raw('sum(beras_infaq) as beras_infaq_tahunan'),
+            DB::raw('sum(jumlah_jiwa) as jiwa_tahunan'),
             DB::raw('count(id_zis_type) as jumlah_data')
             )
         ->groupBy('thisYear', 'id_zis_type')
