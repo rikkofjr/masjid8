@@ -51,7 +51,7 @@
                         @foreach($zisHarian as $zis)
                         <tbody>
                             <td width="10px" style="width:20px;">{{$loop->iteration}}</td>
-                            <td>{{$zis->date}}</td>
+                            <td>{{date('d-m-Y', strtotime($zis->date))}}</td>
                             <td style="text-align:right">{{number_format($zis->uang_harian)}}</td>
                             <td style="text-align:right">{{number_format($zis->uang_infaq_harian)}}</td>
                             <td style="text-align:right">{{$zis->beras_harian}}</td>

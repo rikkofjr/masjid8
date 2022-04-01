@@ -53,7 +53,7 @@ class ZisController extends Controller
         $nowMasehi = Carbon::today()->format('Y');
         $zisType = ZisType::where('id', $zis_type)->get();
         $zisHarian = Zis::select(
-            DB::raw('DATE(hijri) as date'), 
+            DB::raw('DATE(created_at) as date'), 
             DB::raw('sum(uang) as uang_harian'), 
             DB::raw('sum(uang_infaq) as uang_infaq_harian'),
             DB::raw('sum(beras) as beras_harian'),

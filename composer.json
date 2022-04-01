@@ -20,6 +20,8 @@
         "ramsey/uuid": "^4.2",
         "realrashid/sweet-alert": "^4.0",
         "spatie/laravel-permission": "^4.3",
+        "symfony/http-client": "^6.0",
+        "symfony/mailgun-mailer": "^6.0",
         "yajra/laravel-datatables-oracle": "^9.18"
     },
     "require-dev": {
