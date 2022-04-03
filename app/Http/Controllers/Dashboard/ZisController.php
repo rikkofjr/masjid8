@@ -44,7 +44,7 @@ class ZisController extends Controller
         $nowHijri = \GeniusTS\HijriDate\Date::today()->format('j F, Y');
         $nowMasehi = Carbon::today()->format('j F, Y');
         $zisType = ZisType::select('id', 'zis_type')->get();
-        $year = Zis::select(DB::raw('YEAR(hijri) as year'))->distinct()->get()->pluck('year');
+        $year = Zis::select(DB::raw('YEAR(hijri) as year'))->distinct()->orderBy('year', 'DESC')->get()->pluck('year');
         return view('dashboard.zis.admin-zis', compact('nowMasehi', 'nowHijri','zisType','year'));
     }
 
