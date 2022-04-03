@@ -385,16 +385,16 @@ class ZisController extends Controller
         ->whereYear('hijri', $year)//getting daily data from hijriah year
         ->get();
 
-        // if($zis->count() > 0){
-        //     return view('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
-        // }else{
-        //     abort('404');
-        // }
-        // return view('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
+        if($zis->isEmpty()){
+            abort('404');
+        }else{
+            $pdf = PDF::loadView('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
+            $namaFile = 'Zakat Tahun' . $year;
+            $pdf->setPaper('A4', 'landscape');
+            return $pdf->stream(''.$namaFile.'.pdf');
+        }
+        //return view('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
 
-        $pdf = PDF::loadView('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
-        $namaFile = 'Zakat Tahun' . $year;
-        $pdf->setPaper('A4', 'landscape');
-        return $pdf->download(''.$namaFile.'.pdf');
+        
     }
 }

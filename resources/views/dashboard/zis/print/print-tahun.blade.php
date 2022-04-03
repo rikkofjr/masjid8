@@ -97,7 +97,7 @@
                                                     <td style="text-align:right">: {{number_format($zisYear->beras_tahunan)}} kg</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Uang Infaq</td>
+                                                    <td>Beras Infaq</td>
                                                     <td style="text-align:right">{{number_format($zisYear->beras_infaq_tahunan)}} kg</td>
                                                 </tr>
                                                 
@@ -114,7 +114,8 @@
                 </div>
             </div>
         </section>
-        <small>Sumber : {{route('adminPrintZakatTahun', $year)}} </small>
+        <small>Sumber : {{route('adminPrintZakatTahun', $year)}} </small><br/>
+        <small>Tanggal Download : {{Carbon\Carbon::now()->format('j F, Y | H:i:s')}} </small>
     </body>
 </html>
 
