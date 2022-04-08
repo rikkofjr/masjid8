@@ -30,8 +30,8 @@
     </head>
     <body>
         <section class="section">
-            <div class="section-header">
-                <h1 style="text-align:center;">Rekap Data Zakat Tahun {{$year}}H </h1>
+            <div class="section-header" style="height:100px;text-align:center;background:url({{asset('/img/logo.png')}});background-position:left;background-size:100px;background-repeat:no-repeat;">
+                <h1 class="p-5" style="text-align:center;padding:10px 0px;">Rekap Data Zakat Tahun <br/>{{$year}}H </h1>
             </div>
             <div class="section-body">
                 <div class="invoice">

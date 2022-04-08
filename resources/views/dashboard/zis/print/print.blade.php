@@ -41,7 +41,9 @@
 <div class="box">
     <table class="table" width="100%">
         <tr>
-            <td colspan="2" style="text-align:center"><b>Panitia ZIS Masjid <br/>{{$dataMasjid->nama_masjid}} <br/>Faktur ZIS {{date('Y', strtotime($zis->hijri))}}</b></td>
+            <td colspan="2" style="height:60px;text-align:center;background:url({{asset('/img/logo.png')}});background-position:left;background-size:50px;background-repeat:no-repeat;">
+                <b>Panitia ZIS Masjid <br/>{{$dataMasjid->nama_masjid}} <br/>Faktur ZIS {{date('Y', strtotime($zis->hijri))}}</b>
+            </td>
         </tr>
         <tr>
             <td colspan="3">Atas Nama : {{$zis->atas_nama}}</td>
@@ -65,9 +67,11 @@
             <td colspan="1">Infaq : {{$zis->beras_infaq}}</td>
         </tr>
     </table>
-    
-    <img style="opacity: 9;" src="data:image/png;base64,{{DNS2D::getBarcodePNG(route('adminPrintZakatJamaah', $zis->id), 'QRCODE')}}" alt="barcode" />
+    <center>
+    <img width="90px" style="opacity: 9;" src="data:image/png;base64,{{DNS2D::getBarcodePNG(route('adminPrintZakatJamaah', $zis->id), 'QRCODE')}}" alt="barcode" />
 
+    </center>
+    
     <hr>
     Penerima : {{$zis->data_amil->name}}<br/>
     Tanggal Input : {{date('d-m-Y', strtotime($zis->created_at))}}
