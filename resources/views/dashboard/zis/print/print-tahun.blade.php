@@ -26,9 +26,30 @@
             }
             .table tr:nth-child(even){background-color: #f2f2f2;}
             .page_break { page-break-before: always; }
+            .hidden-print{
+                width:100%;
+                padding:20px 0px;
+                font-size:40px;
+            }
+            @media print
+            {
+                * {-webkit-print-color-adjust:exact;}
+
+                .hidden-print,
+                .hidden-print * {
+                    display: none !important;
+                }
+            }
         </style>
     </head>
     <body>
+        <button id="btnPrint" class="hidden-print">Print</button>
+        <script>
+            const $btnPrint = document.querySelector("#btnPrint");
+            $btnPrint.addEventListener("click", () => {
+                window.print();
+            });
+        </script>
         <section class="section">
             <div class="section-header" style="height:100px;text-align:center;background:url({{asset('/img/logo.png')}});background-position:left;background-size:100px;background-repeat:no-repeat;">
                 <h1 class="p-5" style="text-align:center;padding:10px 0px;">Rekap Data Zakat Tahun <br/>{{$year}}H </h1>

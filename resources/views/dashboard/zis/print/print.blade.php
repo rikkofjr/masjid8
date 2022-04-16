@@ -1,5 +1,10 @@
 
 <style type="text/css">
+    .hidden-print{
+        width:100%;
+        padding:20px 0px;
+        font-size:40px;
+    }
     @media print {
     .hidden-print,
         .hidden-print * {
