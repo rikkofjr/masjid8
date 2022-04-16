@@ -388,10 +388,11 @@ class ZisController extends Controller
         if($zis->isEmpty()){
             abort('404');
         }else{
-            $pdf = PDF::loadView('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
-            $namaFile = 'Zakat Tahun' . $year;
-            $pdf->setPaper('A4', 'landscape');
-            return $pdf->stream(''.$namaFile.'.pdf');
+            // $pdf = PDF::loadView('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
+            // $namaFile = 'Zakat Tahun' . $year;
+            // $pdf->setPaper('A4', 'landscape');
+            // return $pdf->stream(''.$namaFile.'.pdf');
+            return view('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
         }
         //return view('dashboard.zis.print.print-tahun', compact('zis', 'year' ,'zisYear'));
 

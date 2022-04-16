@@ -36,6 +36,10 @@
         border-bottom:solid 1px #ccc;
         font: 10px Arial, sans-serif;
     }
+    @media print
+    {
+        * {-webkit-print-color-adjust:exact;}
+    }
 
 </style>
 <div class="box">
