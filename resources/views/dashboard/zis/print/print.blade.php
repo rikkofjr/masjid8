@@ -58,6 +58,9 @@
             <td colspan="3">Atas Nama : {{$zis->atas_nama}}</td>
         </tr>
         <tr>
+            <td colspan="3">Lainnya : <br/> {!! nl2br(e($zis->nama_lain)) !!}</td>
+        </tr>
+        <tr>
             <td colspan="3">Jenis Zakat : {{$zis->jenis_zakat->zis_type}}</td>
         </tr>
         <tr>
