@@ -55,13 +55,13 @@
             </td>
         </tr>
         <tr>
+            <td colspan="3">Jenis Zakat : {{$zis->jenis_zakat->zis_type}}</td>
+        </tr>
+        <tr>
             <td colspan="3">Atas Nama : {{$zis->atas_nama}}</td>
         </tr>
         <tr>
             <td colspan="3">Lainnya : <br/> {!! nl2br(e($zis->nama_lain)) !!}</td>
-        </tr>
-        <tr>
-            <td colspan="3">Jenis Zakat : {{$zis->jenis_zakat->zis_type}}</td>
         </tr>
         <tr>
             <td colspan="3">Jumlah Jiwa : {{$zis->jumlah_jiwa}}</td>
@@ -80,6 +80,7 @@
         </tr>
     </table>
     <center>
+        <h3> Semoga Allah SWT. Memberikan Pahalanya</h3>
     <img width="90px" style="opacity: 9;" src="data:image/png;base64,{{DNS2D::getBarcodePNG(route('adminPrintZakatJamaah', $zis->id), 'QRCODE')}}" alt="barcode" />
 
     </center>
