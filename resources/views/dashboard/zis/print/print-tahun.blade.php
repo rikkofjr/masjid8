@@ -65,6 +65,7 @@
                                 <td width="20%" class="table-header-data" rowspan="2">Jenis Zakat</td>
                                 <td width="25%" class="table-header-data" style="text-align:center;" colspan="2">Jumlah Uang</td>
                                 <td width="25%" class="table-header-data" style="text-align:center;" colspan="2">Jumlah Beras</td>
+                                <td width="25%" class="table-header-data" style="text-align:center;" rowspan="2">Jumlah Jiwa</td>
                             </tr>
                             <tr>
                                 <td class="table-header-data"">Zakat</td>
@@ -83,6 +84,7 @@
                                 <td class="table-body" style="text-align:right;">{{number_format($zias->uang_infaq)}}</td>
                                 <td class="table-body" style="text-align:right;">{{$zias->beras}}</td>
                                 <td class="table-body" style="text-align:right;">{{$zias->beras_infaq}}</td>
+                                <td class="table-body" style="text-align:right;">{{$zias->jumlah_jiwa}}</td>
                             </tr>
                             @endforeach
                         </table>

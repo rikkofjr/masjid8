@@ -95,6 +95,7 @@
                                 <td>Uang Infaq</td>
                                 <td>Beras Zakat</td>
                                 <td>Beras Infaq</td>
+                                <td>Jumlah Jiwa</td>
                                 <td>Amil</td>
                             </tr>
                         </thead>
@@ -142,6 +143,7 @@
                         {data: 'uang_infaq', name: 'uang_infaq', className: 'text-format-number'},
                         {data: 'beras', name: 'beras', className: 'text-format-number'},
                         {data: 'beras_infaq', name: 'beras_infaq', className: 'text-format-number'},
+                        {data: 'jumlah_jiwa', name: 'jumlah_jiwa', className: 'text-format-number'},
                         {data: 'amil', name: 'amil', orderable:false}
                     ]
                 });
